@@ -3,7 +3,7 @@ parallel-ogram
 
 It's like parallel-flickr but for Instagram.
 
-Also: STOP NOW
+STOP NOW
 =========
 
 If you're reading this it means the application does **nothing** yet except let
