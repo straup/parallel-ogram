@@ -23,6 +23,8 @@ See also
 
 * [flamework-instagramapp](https://github.com/straup/flamework-instagramapp)
 
+* ["flinstagram"](https://gist.github.com/1926097)
+
 Shout outs
 =========
 
