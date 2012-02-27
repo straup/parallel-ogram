@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `FoursquareUsers`;
+
+CREATE TABLE `FoursquareUsers` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `foursquare_id` varchar(20) NOT NULL,
+  `oauth_token` char(48) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `by_foursquareid` (`foursquare_id`),
+  KEY `by_token` (`oauth_token`)
+)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
