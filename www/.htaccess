@@ -64,3 +64,10 @@ RewriteRule ^reset/([a-zA-Z0-9]+)/?$	reset.php?reset=$1	[L,QSA]
 RewriteRule  ^account/?$		account.php		[L]
 RewriteRule  ^account/password/?$	account_password.php	[L]
 RewriteRule  ^account/delete/?$		account_delete.php	[L]
+
+# API stuff
+
+RewriteRule  ^api/?$			api_rest.php		[L]
+RewriteRule  ^api/methods/?$		api_methods.php		[L]
+RewriteRule  ^api/methods/(.*)/?$	api_method.php?method=$1&%{QUERY_STRING} [L]
+RewriteRule  ^api/rest/(.*)/?$		api_rest.php?method=$1&%{QUERY_STRING}		[L]
