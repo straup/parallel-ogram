@@ -1,0 +1,14 @@
+{include file="inc_head.txt"}
+
+<div class="instagram_photo">
+<img src="{$photo|@instagram_urls_for_photo}" height="612" width="612" alt="{$photo.caption|escape}" />
+{if 0}
+<br />
+<div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
+{$photo.created|date_format} / {$photo.filter|strtolower|escape}
+</div>
+{/if}
+
+</div>
+
+{include file="inc_foot.txt"}

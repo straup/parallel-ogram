@@ -215,6 +215,8 @@
 	#loadlib('versions');
 	loadlib('http');
 
+	loadlib("instagram_urls");
+
 	if (($GLOBALS['cfg']['site_disabled']) && (! $this_is_shell)){
 
 		header("HTTP/1.1 503 Service Temporarily Unavailable");

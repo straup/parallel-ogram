@@ -39,6 +39,25 @@
 
 	#################################################################
 
+	function instagram_photos_get_by_short_code($code){
+
+		$lookup = instagram_photos_lookup_get_by_short_code($code);
+
+		if (! $lookup){
+			return null;
+		}
+
+		$user = users_get_by_id($lookup['user_id']);
+		$cluster_id = $user['cluster_id'];
+
+		$enc_photo = AddSlashes($lookup['photo_id']);
+
+		$sql = "SELECT * FROM InstagramPhotos WHERE id='{$enc_photo}'";
+		return db_single(db_fetch_users($cluster_id, $sql));
+	}
+
+	#################################################################
+
 	function instagram_photos_for_user($user, $more=array()){
 
 		$cluster_id = $user['cluster_id'];

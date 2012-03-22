@@ -76,4 +76,7 @@ RewriteRule  ^api/rest/(.*)/?$		api_rest.php?method=$1&%{QUERY_STRING}		[L]
 
 RewriteRule ^me(/(.*))?/?$			me.php?path=$2&%{QUERY_STRING}	[L]
 
+RewriteRule ^p/([a-zA-Z_0-9]+)/?$			instagram_photo.php?short_code=$1&%{QUERY_STRING}	[L]
+RewriteRule ^user/[0-9]+/photos/([0-9]+)/?$  		instagram_photo.php?id=$1&%{QUERY_STRING} [L]
+
 RewriteRule ^user/([0-9]+)/photos(/page([0-9]+))?/?$    instagram_photos_user.php?instagram_id=$1&page=$3&%{QUERY_STRING} [L]

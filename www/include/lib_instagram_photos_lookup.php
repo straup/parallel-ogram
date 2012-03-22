@@ -12,6 +12,16 @@
 
 	#################################################################
 
+	function instagram_photos_lookup_get_by_short_code($code){
+
+		$enc_code = AddSlashes($code);
+		$sql = "SELECT * FROM InstagramPhotosLookup WHERE short_code='{$enc_code}'";
+
+		return db_single(db_fetch($sql));
+	}
+
+	#################################################################
+
 	function instagram_photos_lookup_add_photo($photo_id, $user_id){
 
 		$insert = array(

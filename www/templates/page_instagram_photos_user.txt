@@ -5,7 +5,9 @@
 <div class="instagram_photo">
 <img src="{$row|@instagram_urls_for_photo}" height="306" width="306" alt="{$row.caption|escape}" />
 <br />
-<div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;">{$row.created|date_format}</div>
+<div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
+{$row.created|date_format} / {$row.filter|strtolower|escape}
+</div>
 </div>
 {/foreach}
 </div>
