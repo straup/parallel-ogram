@@ -16,7 +16,21 @@
 	loadlib("instagram_photos_import");
 
 	function _backup($insta_user, $more=array()){
-		$rsp = instagram_photos_import_for_user($insta_user);
+
+		$user = users_get_by_id($insta_user['user_id']);
+
+		$photos_more = array(
+			'per_page' => 1
+		);
+
+		$rsp = instagram_photos_for_user($user, $photos_more);
+
+		$import_more = array(
+			'min_timestamp' => $rsp['rows'][0]['created'],
+			
+		);
+
+		$rsp = instagram_photos_import_for_user($user, $import_more);
 		dumper($rsp);
 	}
 

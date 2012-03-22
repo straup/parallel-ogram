@@ -1,6 +1,7 @@
 <?php
 
 	loadlib("instagram_api");
+	loadlib("instagram_users");
 	loadlib("instagram_photos");
 	loadlib("instagram_photos_lookup");
 	loadlib("storage");
@@ -13,6 +14,8 @@
  
 	function instagram_photos_import_for_user($user, $more=array()){
 
+		$insta_user = instagram_users_get_by_user_id($user['id']);
+
 		$defaults = array(
 			'force' => 0,
 		);
@@ -22,8 +25,12 @@
 		$method = 'users/self/media/recent';
 
 		$args = array(
-			'access_token' => $user['oauth_token'],
+			'access_token' => $insta_user['oauth_token'],
 		);
+
+		if (isset($more['min_timestamp'])){
+			$args['min_timestamp'] = $more['min_timestamp'];
+		}
 
 		$count_imported = 0;
 		$count_skipped = 0;
@@ -57,12 +64,16 @@
 				$id = $d['id'];
 				list($photo_id, $user_id) = explode("_", $id, 2);
 
+				$photo = instagram_photos_get_by_id($photo_id);
+
 				$id_path = storage_id_to_path($photo_id);
 				$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
 
 				$full_path = "{$root_path}{$photo_id}_{$photo_secret}.jpg";
 
-				if ((file_exists($full_path)) && (! $more['force'])){
+				if ((file_exists($full_path) && $photo) && (! $more['force'])){
+
+					log_rawr("skipping photo ID #{$photo_id}, {$full_path} already exists");
 					$count_skipped ++;
 					continue;
 				}
@@ -87,7 +98,7 @@
 
 				$data = array(
 					'id' => $photo_id,
-					'user_id' => $user['user_id'],
+					'user_id' => $user['id'],
 					'secret' => $photo_secret,
 					'filter' => $d['filter'],
 					'created' => $d['created_time'],
@@ -108,7 +119,7 @@
 					$data['place_id'] = $loc['id'];
 				}
 
-				if ($photo = instagram_photos_get_by_id($photo_id)){
+				if ($photo){
 					$rsp = instagram_photos_update_photo($photo, $data);
 				}
 
