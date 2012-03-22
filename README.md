@@ -9,7 +9,7 @@ STOP NOW
 If you're reading this it means the application does **nothing** yet except let
 you log in using the Instagram API as a validation service.
 
-**It does not archive or display your Instagram photos yet.**
+**It does not archive or display your Instagram photos yet.** ... Actually it does now, but it's probably still too soon to bother playing with.
 
 If you're comfortable working with parallel-flickr or Flamework, in general,
 feel free to poke around and send patches or whatever.
