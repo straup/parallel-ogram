@@ -32,9 +32,11 @@ CREATE TABLE `InstagramUsers` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `instagram_id` varchar(20) NOT NULL,
   `oauth_token` char(48) NOT NULL,
+  `backup_photos` TINYINT(3) UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `by_instagram_id` (`instagram_id`),
-  KEY `by_token` (`oauth_token`)
+  KEY `by_token` (`oauth_token`),
+  KEY `backup_users` (`backup_photos`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `InstagramPhotosLookup`;

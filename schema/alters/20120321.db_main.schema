@@ -3,3 +3,6 @@ CREATE TABLE `InstagramPhotosLookup` (
   `user_id` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`photo_id`)
 )  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+ALTER TABLE InstagramUsers ADD backup_photos TINYINT(3) UNSIGNED NOT NULL;
+CREATE INDEX `backup_users` ON InstagramUsers (`backup_photos`);

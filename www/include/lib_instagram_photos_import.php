@@ -21,9 +21,11 @@
 			'access_token' => $user['oauth_token'],
 		);
 
-		$ok = 1;
 		$count_imported = 0;
 		$count_skipped = 0;
+		$count_failed = 0;
+
+		$ok = 1;
 
 		while ($ok){
 

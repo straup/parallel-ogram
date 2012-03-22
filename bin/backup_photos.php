@@ -5,19 +5,23 @@
 
 	set_time_limit(0);
 
-	#
+	# Honestly, it feels a bit weird to do this in a backfill script
+	# and I bet there will be enough administrivia around backups
+	# (maybe?) that they will need to be moved in to their own table
+	# but for now... it works. (20120321/straup)
 
 	include("include/init.php");
-	loadlib("instagram_users");
+
+	loadlib("backfill");
 	loadlib("instagram_photos_import");
 
-	# see this? it's not done yet...
+	function _backup($insta_user, $more=array()){
+		$rsp = instagram_photos_import_for_user($insta_user);
+		dumper($rsp);
+	}
 
-	$user_id = 'fix me';
-	$user_id = 3;
-	$user = instagram_users_get_by_user_id($user_id);
-	$rsp = instagram_photos_import_for_user($user);
+	$sql = "SELECT * FROM InstagramUsers WHERE backup_photos=1";
+	backfill_db_users($sql, '_backup');
 
-	dumper($rsp);
 	exit();
 ?>

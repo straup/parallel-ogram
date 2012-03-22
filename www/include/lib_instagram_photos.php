@@ -28,6 +28,8 @@
 		$user = users_get_by_id($photo['user_id']);
 		$cluster_id = $user['cluster_id'];
 
+		$photo['imported'] = time();
+
 		$insert = array();
 
 		foreach ($photo as $k => $v){
