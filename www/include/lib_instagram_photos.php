@@ -23,6 +23,21 @@
 
 	#################################################################
 
+	function instagram_photos_for_user($user, $more=array()){
+
+		$cluster_id = $user['cluster_id'];
+
+		$enc_user = AddSlashes($user['id']);
+
+		$sql = "SELECT * FROM InstagramPhotos WHERE user_id='{$enc_user}'";
+		$sql .= " ORDER BY created DESC";
+
+		$rsp = db_fetch_paginated_users($cluster_id, $sql, $more);
+		return $rsp;
+	}
+
+	#################################################################
+
 	function instagram_photos_add_photo($photo){
 
 		$user = users_get_by_id($photo['user_id']);

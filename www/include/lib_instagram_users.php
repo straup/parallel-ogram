@@ -22,6 +22,16 @@
 
 	#################################################################
 
+	function instagram_users_get_by_id($instagram_id){
+
+		$enc_id = AddSlashes($instagram_id);
+
+		$sql = "SELECT * FROM InstagramUsers WHERE instagram_id='{$enc_id}'";
+		return db_single(db_fetch($sql));
+	}
+
+	#################################################################
+
 	function instagram_users_create_user($user){
 
 		$hash = array();

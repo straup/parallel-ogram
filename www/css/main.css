@@ -1,28 +1,25 @@
 
 body {
 	text-align: center;
-	background-color: #eee;
+	background-color: #fff;
 	margin: 0;
 	padding: 0;
+	font-family:sans-serif;
 }
 
 #main {
 	margin: 0 auto;
-	width: 800px;
 	text-align: left;
 	background-color: #fff;
 	padding: 0;
 }
 
 #nav {
-	background-color: #ddd;
 	padding: 0.5em 1em;
 }
 
 #footer {
-	background-color: #ddd;
 	padding: 0.5em 1em;
-	text-align: center;
 	color: #999;
 }
 
@@ -94,4 +91,14 @@ p.message {
     color: #999;
     margin: 0;
     background:#fff;
+}
+
+.instagram_photo {
+    margin-bottom: 20px;
+    float:left;
+    margin-right:20px;
+}
+
+.instagram_photo img {
+    border: 5px solid #000;
 }
