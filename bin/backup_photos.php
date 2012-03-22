@@ -14,8 +14,10 @@
 	# see this? it's not done yet...
 
 	$user_id = 'fix me';
+	$user_id = 3;
 	$user = instagram_users_get_by_user_id($user_id);
 	$rsp = instagram_photos_import_for_user($user);
 
+	dumper($rsp);
 	exit();
 ?>

@@ -1,0 +1,5 @@
+CREATE TABLE `InstagramPhotosLookup` (
+  `photo_id` BIGINT(20) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`photo_id`)
+)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -2,6 +2,7 @@
 
 	loadlib("instagram_api");
 	loadlib("instagram_photos");
+	loadlib("storage");
 	loadlib("http");
 
 	#################################################################
@@ -22,6 +23,7 @@
 
 		$ok = 1;
 		$count_imported = 0;
+		$count_skipped = 0;
 
 		while ($ok){
 
@@ -32,6 +34,8 @@
 			}
 
 			$pg = $rsp['rsp']['pagination'];
+
+			$to_fetch = array();
 
 			foreach ($rsp['rsp']['data'] as $d){
 
@@ -47,25 +51,61 @@
 				$id = $d['id'];
 				list($photo_id, $user_id) = explode("_", $id, 2);
 
-				$id_path = instagram_photos_id_to_path($photo_id);
+				$id_path = storage_id_to_path($photo_id);
 				$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
 
 				$full_path = "{$root_path}{$photo_id}_{$photo_secret}.jpg";
 
-				if (! file_exists($root_path)){
-					mkdir($root_path, 0755, true);
+				if ((file_exists($full_path)) && (! $more['force'])){
+					$count_skipped ++;
+					continue;
 				}
 
 				$rsp = http_get($photo_url);
 
 				if (! $rsp['ok']){
-					echo "failed to retrieve '{$photo_url}' : {$rsp['error']}\n";
+					log_rawr("failed to retrieve '{$photo_url}' : {$rsp['error']}");
+
+					$count_failed ++;
 					continue;
 				}
 
-				$fh = fopen($full_path, "wb");
-				fwrite($fh, $rsp['body']);
-				fclose($fh);
+				$rsp = storage_write_file($full_path, $rsp['body']);
+
+				if (! $rsp['ok']){
+					log_rawr("failed to write photo to disk: {$rsp['error']}");
+
+					$count_failed ++;
+					continue;
+				}
+
+				$data = array(
+					'id' => $photo_id,
+					'user_id' => $user['user_id'],
+					'secret' => $photo_secret,
+					'filter' => $d['filter'],
+					'created' => $d['created_time'],
+
+					# punting on these for now and may drop them
+					# altogether... (20120321/straup)
+
+					# 'caption' => $d['caption'],
+				);
+
+				if ($photo = instagram_photos_get_by_id($photo_id)){
+					# $rsp = instagram_photos_update_photo($photo, $data);
+				}
+
+				else {
+					$rsp = instagram_photos_add_photo($data);
+				}
+
+				if (! $rsp['ok']){
+					log_rawr("failed to add photo to the database: {$rsp['error']}");
+
+					$count_failed ++;
+					continue;
+				}
 
 				echo "{$full_path}\n";
 
@@ -78,15 +118,13 @@
 		}
 
 		return okay(array(
-			'count_imported' => $count_imported
+			'count_imported' => $count_imported,
+			'count_skipped' => $count_skipped,
+			'count_failed' => $count_failed,
 		));
 
 	}
 
 	#################################################################
-
-	function _instagram_photos_import_multi($reqs){
-
-	}
 
 ?>

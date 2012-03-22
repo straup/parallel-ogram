@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `InstagramPhotos`;
+
+CREATE TABLE `InstagramPhotos` (
+  `id` BIGINT(20) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  `secret` VARCHAR(32) NOT NULL,
+  `filter` VARCHAR(32) NOT NULL,
+  `created` INT(11) UNSIGNED NOT NULL,
+  `imported` INT(11) UNSIGNED NOT NULL,
+  `caption` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `by_user` (`user_id`, `created`),
+  KEY `by_filter` (`user_id`, `filter`, `created`),
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

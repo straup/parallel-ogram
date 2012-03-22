@@ -35,6 +35,14 @@ CREATE TABLE `InstagramUsers` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `by_instagram_id` (`instagram_id`),
   KEY `by_token` (`oauth_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `InstagramPhotosLookup`;
+
+CREATE TABLE `InstagramPhotosLookup` (
+  `photo_id` BIGINT(20) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`photo_id`)
 )  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ApiKeys`;
