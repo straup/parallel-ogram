@@ -1,6 +1,7 @@
 <?php
 
 	loadlib("storage");
+	loadlib("instagram_users");
 
 	#################################################################
 
@@ -19,4 +20,30 @@
 
 	#################################################################
 
+	function instagram_urls_for_photo_page($photo){
+
+		$user = users_get_by_id($photo['user_id']);
+		$root = instagram_urls_for_user_photos($user);
+
+		return $root . "{$photo['id']}/";
+	}
+
+	#################################################################
+
+	function instagram_urls_for_user_photos($user){
+
+		$root = instagram_urls_for_user($user);
+		return $root . "photos/";
+	}
+
+	#################################################################
+
+	function instagram_urls_for_user($user){
+
+		$insta_user = instagram_users_get_by_user_id($user['id']);
+
+		return $GLOBALS['cfg']['abs_root_url'] . "user/{$insta_user['instagram_id']}/";
+	}
+
+	#################################################################
 ?>
