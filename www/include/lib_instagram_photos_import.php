@@ -7,6 +7,9 @@
 
 	#################################################################
 
+	# http://instagram.com/developer/endpoints/users/#get_users_media_recent
+	# TO DO: account for and set 'min_timestamp' parameter
+ 
 	function instagram_photos_import_for_user($user, $more=array()){
 
 		$defaults = array(
