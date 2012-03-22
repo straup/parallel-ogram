@@ -2,6 +2,7 @@
 
 	loadlib("instagram_api");
 	loadlib("instagram_photos");
+	loadlib("instagram_photos_lookup");
 	loadlib("storage");
 	loadlib("http");
 
@@ -13,7 +14,7 @@
 	function instagram_photos_import_for_user($user, $more=array()){
 
 		$defaults = array(
-			'force' => 0
+			'force' => 0,
 		);
 
 		$more = array_merge($defaults, $more);
@@ -90,19 +91,43 @@
 					'secret' => $photo_secret,
 					'filter' => $d['filter'],
 					'created' => $d['created_time'],
+					'caption' => $d['caption']['text'],
 
-					# punting on these for now and may drop them
-					# altogether... (20120321/straup)
+					# Some day there might be a way to tell whether a person's
+					# photos are public or not. Apparently 'links' are generateed
+					# whenever you send a photo to another service (like Flickr)
+					# which I'm guessing are meant to operate like a casual privacy
+					# through obscurity you never knew about... (20120322/straup)
 
-					# 'caption' => $d['caption'],
+					'perms' => 0,
 				);
 
+				if ($loc = $d['location']){
+					$data['latitude'] = $loc['latitude'];
+					$data['longitude'] = $loc['longitude'];
+					$data['place_id'] = $loc['id'];
+				}
+
 				if ($photo = instagram_photos_get_by_id($photo_id)){
-					# $rsp = instagram_photos_update_photo($photo, $data);
+					$rsp = instagram_photos_update_photo($photo, $data);
 				}
 
 				else {
 					$rsp = instagram_photos_add_photo($data);
+				}
+
+				# See above
+
+				if ($link = $d['link']){
+
+					$short_code = basename($link);
+
+					$lookup = instagram_photos_lookup_get_by_photo_id($photo_id);
+
+					if ($lookup['short_code'] != $short_code){
+						$update = array('short_code' => $short_code);
+						instagram_photos_lookup_update($lookup, $update);
+					}
 				}
 
 				if (! $rsp['ok']){
@@ -112,7 +137,7 @@
 					continue;
 				}
 
-				echo "{$full_path}\n";
+				log_rawr("imported {$full_path}");
 
 				$count_imported ++;
 			}

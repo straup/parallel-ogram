@@ -8,7 +8,13 @@ CREATE TABLE `InstagramPhotos` (
   `created` INT(11) UNSIGNED NOT NULL,
   `imported` INT(11) UNSIGNED NOT NULL,
   `caption` VARCHAR(255) NOT NULL,
+  `perms` TINYINT(3) UNSIGNED NOT NULL,
+  `latitude` DECIMAL(9,6) DEFAULT NULL,
+  `longitude` DECIMAL(9,6) DEFAULT NULL,
+  `place_id` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `by_user` (`user_id`, `created`),
   KEY `by_filter` (`user_id`, `filter`, `created`),
+  KEY `by_location` (`user_id`, `latitude`, `longitude`, `created`),
+  KEY `by_place` (`user_id`, `place_id`, `created`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

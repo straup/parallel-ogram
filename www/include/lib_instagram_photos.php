@@ -4,6 +4,22 @@
 
 	#################################################################
 
+	function instagram_photos_privacy_map($string_keys){
+
+		$map = array(
+			0 => 'not public',
+			1 => 'public'
+		);
+
+		if ($string_keys){
+			$map = array_flip($map);
+		}
+
+		return $map;
+	}
+
+	#################################################################
+
 	function instagram_photos_get_by_id($photo_id){
 
 		$lookup = instagram_photos_lookup_get_by_photo_id($photo_id);

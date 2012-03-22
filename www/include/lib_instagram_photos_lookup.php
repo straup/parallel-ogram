@@ -19,10 +19,24 @@
 			'user_id' => AddSlashes($user_id),
 		);
 
-		$rsp = db_insert('InstagramPhotosLookup', $insert);
-		return $rsp;
+		return db_insert('InstagramPhotosLookup', $insert);
 	}
 
 	#################################################################
 
+	function instagram_photos_lookup_update($lookup, $update){
+
+		$enc_photo = AddSlashes($lookup['photo_id']);
+		$where = "photo_id='{$enc_photo}'";
+
+		$insert = array();
+
+		foreach ($update as $k => $v){
+			$insert[$k] = AddSlashes($v);
+		}
+
+		return db_update('InstagramPhotosLookup', $insert, $where);
+	}
+
+	#################################################################
 ?>

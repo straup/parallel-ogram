@@ -1,0 +1,3 @@
+ALTER TABLE `InstagramPhotosLookup` ADD `short_code` VARCHAR(12) NOT NULL;
+
+CREATE INDEX `by_shortcode` ON `InstagramPhotosLookup` (`short_code`);

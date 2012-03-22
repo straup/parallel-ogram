@@ -1,0 +1,7 @@
+ALTER TABLE `InstagramPhotos` ADD `perms` TINYINT(3) UNSIGNED NOT NULL;
+ALTER TABLE `InstagramPhotos` ADD `latitude` DECIMAL(9,6) DEFAULT NULL;
+ALTER TABLE `InstagramPhotos` ADD `longitude` DECIMAL(9,6) DEFAULT NULL;
+ALTER TABLE `InstagramPhotos` ADD `place_id` VARCHAR(64) NOT NULL;
+
+CREATE INDEX `by_location` ON `InstagramPhotos` (`user_id`, `latitude`, `longitude`, `created`);
+CREATE INDEX `by_place` ON `InstagramPhotos` (`user_id`, `place_id`, `created`);
