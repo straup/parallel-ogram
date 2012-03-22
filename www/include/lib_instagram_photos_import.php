@@ -117,12 +117,13 @@
 			$args['max_id'] = $pg['next_max_id'];
 		}
 
-		return okay(array(
+		$rsp = array(
 			'count_imported' => $count_imported,
 			'count_skipped' => $count_skipped,
 			'count_failed' => $count_failed,
-		));
+		);
 
+		return ($count_failed) ? not_okay($rsp) : okay($rsp);
 	}
 
 	#################################################################
