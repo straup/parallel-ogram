@@ -118,7 +118,15 @@
 		$enc_photo = AddSlashes($photo['id']);
 		$where = "id='{$enc_photo}'";
 
-		return db_update_users($cluster_id, 'InstagramPhotos', $insert, $where);
+		$rsp = db_update_users($cluster_id, 'InstagramPhotos', $insert, $where);
+
+		if ($rsp['ok']){
+
+			$photo = array_merge($photo, $update);
+			$rsp['photo'] = $photo;
+		}
+
+		return $rsp;
 	}
 
 	#################################################################

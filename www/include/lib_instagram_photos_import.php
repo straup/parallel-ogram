@@ -250,7 +250,13 @@
 			$rsp = instagram_photos_add_photo($data);
 		}
 
-		if ($link = $d['link']){
+		if (! $rsp['ok']){
+			return $rsp;
+		}
+
+		$photo = $rsp['photo'];
+
+		if ($link = $row['link']){
 
 			$short_code = basename($link);
 

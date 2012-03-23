@@ -47,8 +47,8 @@
 
 				$_more = array('force' => 1);
 				$import_rsp = instagram_photos_import_api_photo($d, $_more);
+dumper($import_rsp);
 
-				echo "{$import_rsp['ok']} : {$import_rsp['photo']['id']}, {$import_rsp['fullpath']}\n";
 				# TO DO: add to InstagramLikes table
 
 				$count_imported ++;
