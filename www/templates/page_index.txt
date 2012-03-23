@@ -1,7 +1,5 @@
 {include file='inc_head.txt'}
 
-<h1>Hello World</h1>
-
-<p>Ok. Looks like you got flamework installed.</p>
+<p>this you can't that, instantly!</p>
 
 {include file='inc_foot.txt'}

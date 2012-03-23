@@ -18,6 +18,13 @@
 		allow from all
 	</Directory>
 
+	Alias /static/ /usr/local/PROJECT-static/
+
+	<Directory /usr/local/PROJECT-static/>
+		Options None
+		AllowOverride None
+	</Directory>
+
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 
 	# Possible values include: debug, info, notice, warn, error, crit,

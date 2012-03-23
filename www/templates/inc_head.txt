@@ -4,6 +4,7 @@
 	<title>{$cfg.site_name|escape}{if $page_title} | {$page_title|escape}{/if}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" media="all" href="{$cfg.abs_root_url}css/main.css" />
+	<script type="text/javascript" src="{$cfg.abs_root_url}javascript/jquery-1.7.1.min.js"></script>
 	{$extra_head}
 </head>
 <body>
