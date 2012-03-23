@@ -51,10 +51,6 @@
 
 				$photo_url = $d['images']['standard_resolution']['url'];
 
-				# Is this really a photo secret? Who knows. I can not make heads or
-				# tails of Instagram's freakish and overlapping ID schemes...
-				# (20120321/straup)
-
 				$photo_base = basename($photo_url);
 				$photo_secret = str_replace("_7.jpg", "", $photo_base);
 
@@ -100,12 +96,6 @@
 					'filter' => $d['filter'],
 					'created' => $d['created_time'],
 					'caption' => $d['caption']['text'],
-
-					# Some day there might be a way to tell whether a person's
-					# photos are public or not. Apparently 'links' are generateed
-					# whenever you send a photo to another service (like Flickr)
-					# which I'm guessing are meant to operate like a casual privacy
-					# through obscurity you never knew about... (20120322/straup)
 
 					'perms' => 0,
 				);
@@ -170,9 +160,19 @@
 
 	function instagram_photos_import_api_photo($row, $more=array()){
 
+		$defaults = array(
+			'force' => 0,
+		);
+
+		$more = array_merge($defaults, $more);
+
 		$photo_url = $row['images']['standard_resolution']['url'];
 
 		# TO DO: put this bit in a function...
+
+		# Is this really a photo secret? Who knows. I can not make heads or
+		# tails of Instagram's freakish and overlapping ID schemes...
+		# (20120321/straup)
 
 		$photo_base = basename($photo_url);
 		$photo_secret = str_replace("_7.jpg", "", $photo_base);
@@ -226,6 +226,13 @@
 			'filter' => $row['filter'],
 			'created' => $row['created_time'],
 			'caption' => $row['caption']['text'],
+
+			# Some day there might be a way to tell whether a person's
+			# photos are public or not. Apparently 'links' are generateed
+			# whenever you send a photo to another service (like Flickr)
+			# which I'm guessing are meant to operate like a casual privacy
+			# through obscurity you never knew about... (20120322/straup)
+
 			'perms' => 0,
 		);
 
