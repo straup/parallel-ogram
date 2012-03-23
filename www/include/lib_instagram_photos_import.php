@@ -49,95 +49,19 @@
 
 			foreach ($rsp['rsp']['data'] as $d){
 
-				$photo_url = $d['images']['standard_resolution']['url'];
+				$import_rsp = instagram_photos_import_api_photo($d, $more);
 
-				$photo_base = basename($photo_url);
-				$photo_secret = str_replace("_7.jpg", "", $photo_base);
+				if (! $import_rsp['ok']){
+					$count_failed ++;
+				}
 
-				$id = $d['id'];
-				list($photo_id, $user_id) = explode("_", $id, 2);
-
-				$photo = instagram_photos_get_by_id($photo_id);
-
-				$id_path = storage_id_to_path($photo_id);
-				$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
-
-				$full_path = "{$root_path}{$photo_id}_{$photo_secret}.jpg";
-
-				if ((file_exists($full_path) && $photo) && (! $more['force'])){
-
-					log_rawr("skipping photo ID #{$photo_id}, {$full_path} already exists");
+				else if ($import_rsp['skipped']){
 					$count_skipped ++;
-					continue;
-				}
-
-				$rsp = http_get($photo_url);
-
-				if (! $rsp['ok']){
-					log_rawr("failed to retrieve '{$photo_url}' : {$rsp['error']}");
-
-					$count_failed ++;
-					continue;
-				}
-
-				$rsp = storage_write_file($full_path, $rsp['body']);
-
-				if (! $rsp['ok']){
-					log_rawr("failed to write photo to disk: {$rsp['error']}");
-
-					$count_failed ++;
-					continue;
-				}
-
-				$data = array(
-					'id' => $photo_id,
-					'user_id' => $user['id'],
-					'secret' => $photo_secret,
-					'filter' => $d['filter'],
-					'created' => $d['created_time'],
-					'caption' => $d['caption']['text'],
-
-					'perms' => 0,
-				);
-
-				if ($loc = $d['location']){
-					$data['latitude'] = $loc['latitude'];
-					$data['longitude'] = $loc['longitude'];
-					$data['place_id'] = $loc['id'];
-				}
-
-				if ($photo){
-					$rsp = instagram_photos_update_photo($photo, $data);
 				}
 
 				else {
-					$rsp = instagram_photos_add_photo($data);
+					$count_imported ++;
 				}
-
-				# See above
-
-				if ($link = $d['link']){
-
-					$short_code = basename($link);
-
-					$lookup = instagram_photos_lookup_get_by_photo_id($photo_id);
-
-					if ($lookup['short_code'] != $short_code){
-						$update = array('short_code' => $short_code);
-						instagram_photos_lookup_update($lookup, $update);
-					}
-				}
-
-				if (! $rsp['ok']){
-					log_rawr("failed to add photo to the database: {$rsp['error']}");
-
-					$count_failed ++;
-					continue;
-				}
-
-				log_rawr("imported {$full_path}");
-
-				$count_imported ++;
 			}
 
 			$ok = ($pg['next_max_id']) ? 1 : 0;
@@ -155,8 +79,6 @@
 	}
 
 	#################################################################
-
-	# WORK IN PROGRESS... this will eventually replace all that stuff above
 
 	function instagram_photos_import_api_photo($row, $more=array()){
 
