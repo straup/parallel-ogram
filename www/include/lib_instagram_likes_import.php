@@ -61,13 +61,22 @@
 
 				echo $photo_url . "\n";
 
+				# TO DO: put this in a library (see also: _photos_import.php)
+
 				$photo_base = basename($photo_url);
 				$photo_secret = str_replace("_7.jpg", "", $photo_base);
 
 				$id = $d['id'];
-				list($photo_id, $user_id) = explode("_", $id, 2);
+				list($photo_id, $ignore) = explode("_", $id, 2);
 
 				$photo = instagram_photos_get_by_id($photo_id);
+
+				$owner_id = $d['user']['id'];
+				$owner = instagram_users_get_by_id($owner_id);
+
+				if (! $owner){
+					$owner = instagram_users_register_user($owner_id, $d['user']['username']);
+				}
 
 				$id_path = storage_id_to_path($photo_id);
 				$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
@@ -99,11 +108,13 @@
 					continue;
 				}
 
-				continue;
+				# see this: it's the photo row, not the 'like' row
+
+				# TO DO: put me in a function ...
 
 				$data = array(
 					'id' => $photo_id,
-					'user_id' => $user['id'],
+					'user_id' => $owner['user_id'],
 					'secret' => $photo_secret,
 					'filter' => $d['filter'],
 					'created' => $d['created_time'],

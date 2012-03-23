@@ -1,5 +1,7 @@
 <?php
 
+	loadlib("random");
+
 	#################################################################
 
 	function instagram_users_get_by_oauth_token($token){
@@ -28,6 +30,39 @@
 
 		$sql = "SELECT * FROM InstagramUsers WHERE instagram_id='{$enc_id}'";
 		return db_single(db_fetch($sql));
+	}
+
+	#################################################################
+
+	# This creates rows in both the 'users' and 'InstagramUsers' tables
+
+	function instagram_users_register_user($instagram_id, $instagram_name, $oauth_token=''){
+
+		$password = random_string(32);
+
+		$email = "{$instagram_id}@donotsend-instagram.com";
+
+		$user = users_create_user(array(
+			"username" => $instagram_name,
+			"email" => $email,
+			"password" => $password,
+		));
+
+		if (! $user){
+			return not_okay("dberr_user");
+		}
+
+		$instagram_user = instagram_users_create_user(array(
+			'user_id' => $user['id'],
+			'oauth_token' => $oauth_token,
+			'instagram_id' => $instagram_id,
+		));
+
+		if (! $instagram_user){
+			return not_okay("dberr_instagramuser");
+		}
+
+		return $instagram_user;
 	}
 
 	#################################################################
