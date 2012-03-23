@@ -45,6 +45,12 @@
 		}
 	}
 
+	else if ($filter = get_str("filter")){
+
+		$more['filter'] = $filter;
+		$GLOBALS['smarty']->assign("filter", $filter);
+	}
+
 	$rsp = instagram_likes_for_user($owner, $more);
 
 	$GLOBALS['smarty']->assign_by_ref("photos", $rsp['rows']);

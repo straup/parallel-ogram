@@ -32,6 +32,14 @@
 			$sql .= " AND owner_id='{$enc_owner}'";
 		}
 
+		else if (isset($more['filter'])){
+
+			$enc_filter = AddSlashes($more['filter']);
+			$sql .= " AND filter='{$enc_filter}'";
+		}
+
+		else {}
+
 		$sql .= " ORDER BY photo_id DESC";
 
 		$rsp = db_fetch_paginated_users($cluster_id, $sql, $more);
@@ -66,6 +74,7 @@
 		$like = array(
 			'photo_id' => $photo['id'],
 			'owner_id' => $photo['user_id'],
+			'filter' => $photo['filter'],
 			'user_id' => $user['id'],
 			'created' => time(),
 		);

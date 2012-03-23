@@ -46,16 +46,13 @@
 
 			foreach ($rsp['rsp']['data'] as $d){
 
-				$_more = array('force' => 1);
-				$import_rsp = instagram_photos_import_api_photo($d, $_more);
+				$import_rsp = instagram_photos_import_api_photo($d, $more);
 
 				if (! $rsp['ok']){
 					log_rawr($rsp['error']);
 				}
 
 				$like_rsp = instagram_likes_add_photo($import_rsp['photo'], $user);
-
-				dumper($like_rsp);
 
 				$count_imported ++;
 			}

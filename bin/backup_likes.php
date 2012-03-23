@@ -19,7 +19,9 @@
 
 		$user = users_get_by_id($insta_user['user_id']);
 
-		$rsp = instagram_likes_import_for_user($user);
+		$more = array('force' => 1);
+
+		$rsp = instagram_likes_import_for_user($user, $more);
 		dumper($rsp);
 	}
 

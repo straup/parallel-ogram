@@ -203,6 +203,8 @@
 		if ((file_exists($full_path) && $photo) && (! $more['force'])){
 
 			return okay(array(
+				'photo' => $photo,
+				'path' => $full_path,
 				'skipped' => 1
 			));
 		}
