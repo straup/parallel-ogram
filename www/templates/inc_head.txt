@@ -23,6 +23,8 @@
 			|
 			<a href="{$cfg.user|@instagram_urls_for_user_photos}">photos</a>
 			|
+			<a href="{$cfg.user|@instagram_urls_for_user_likes}">likes</a>
+			|
 			<a href="{$cfg.abs_root_url}signout/">sign out</a>
 {else}
 	{if $cfg.enable_feature_signin}

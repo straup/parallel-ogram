@@ -1,6 +1,7 @@
 <?php
 
 	loadlib("instagram_api");
+	loadlib("instagram_likes");
 	loadlib("instagram_photos_import");
 
 	#################################################################
@@ -47,9 +48,14 @@
 
 				$_more = array('force' => 1);
 				$import_rsp = instagram_photos_import_api_photo($d, $_more);
-dumper($import_rsp);
 
-				# TO DO: add to InstagramLikes table
+				if (! $rsp['ok']){
+					log_rawr($rsp['error']);
+				}
+
+				$like_rsp = instagram_likes_add_photo($import_rsp['photo'], $user);
+
+				dumper($like_rsp);
 
 				$count_imported ++;
 			}

@@ -1,4 +1,4 @@
-{capture assign="page_title"}{$owner.username} | photos{/capture}
+{capture assign="page_title"}{$owner.username} | likes{/capture}
 {include file="inc_head.txt"}
 
 <div style="max-width:1024px;">
@@ -7,7 +7,7 @@
 <a href="{$row|@instagram_urls_for_photo_page}"><img src="{$row|@instagram_urls_for_photo}" height="306" width="306" alt="{$row.caption|escape}" /></a>
 <br />
 <div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
-{$row.created|date_format} / {$row.filter|strtolower|escape}
+{$row.created|date_format} / {$row.owner.username|escape}
 </div>
 </div>
 {/foreach}

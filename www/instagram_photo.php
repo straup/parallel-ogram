@@ -7,6 +7,7 @@
 	login_ensure_loggedin();
 
 	loadlib("instagram_photos");
+	loadlib("instagram_photos_permissions");
 
 	if ($id = get_int64("id")){
 		$photo = instagram_photos_get_by_id($id);
@@ -28,7 +29,7 @@
 
 	# for now...
 
-	if ($owner['id'] != $GLOBALS['cfg']['user']['id']){
+	if (! instagram_photos_permissions_can_view_photo($photo, $GLOBALS['cfg']['user']['id'])){
 		error_403();
 	}
 

@@ -3,8 +3,7 @@
 	include("include/init.php");
 
 	loadlib("instagram_users");
-	loadlib("instagram_photos");
-	loadlib("instagram_urls");
+	loadlib("instagram_likes");
 
 	login_ensure_loggedin();
 
@@ -22,6 +21,8 @@
 
 	$owner = users_get_by_id($instagram_user['user_id']);
 
+	# for now...
+
 	if ($owner['id'] != $GLOBALS['cfg']['user']['id']){
 		error_403();
 	}
@@ -34,11 +35,10 @@
 		$more['page'] = $page;
 	}
 	
-	$rsp = instagram_photos_for_user($owner, $more);
-
+	$rsp = instagram_likes_for_user($owner, $more);
 	$GLOBALS['smarty']->assign_by_ref("photos", $rsp['rows']);
 	$GLOBALS['smarty']->assign_by_ref("owner", $owner);
 
-	$GLOBALS['smarty']->display("page_instagram_photos_user.txt");
+	$GLOBALS['smarty']->display("page_instagram_likes_user.txt");
 	exit();
 ?>

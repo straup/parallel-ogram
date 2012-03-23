@@ -1,0 +1,9 @@
+CREATE TABLE `InstagramLikes` (
+  `photo_id` BIGINT(20) UNSIGNED NOT NULL,
+  `owner_id` INT(11) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  `created` INT(11) UNSIGNED NOT NULL,
+  UNIQUE KEY `by_like` (`user_id`, `photo_id`),
+  KEY `by_user` (`user_id`, `created`)
+  KEY `by_owner` (`user_id`, `owner_id`, `created`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -1,3 +1,4 @@
+{capture assign="page_title"}{$owner.username} | {if $photo.caption}{$photo.caption}{else}untitled photo #{$photo.id}{/if}{/capture}
 {include file="inc_head.txt"}
 
 <div class="instagram_photo">

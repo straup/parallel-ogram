@@ -38,6 +38,14 @@
 
 	#################################################################
 
+	function instagram_urls_for_user_likes($user){
+
+		$root = instagram_urls_for_user($user);
+		return $root . "likes/";
+	}
+
+	#################################################################
+
 	function instagram_urls_for_user($user){
 
 		$insta_user = instagram_users_get_by_user_id($user['id']);
