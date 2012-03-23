@@ -166,7 +166,103 @@
 
 	#################################################################
 
-	function instagram_photos_import_api_photo($photo, $owner){
+	# WORK IN PROGRESS... this will eventually replace all that stuff above
+
+	function instagram_photos_import_api_photo($row, $more=array()){
+
+		$photo_url = $row['images']['standard_resolution']['url'];
+
+		# TO DO: put this bit in a function...
+
+		$photo_base = basename($photo_url);
+		$photo_secret = str_replace("_7.jpg", "", $photo_base);
+
+		$id = $row['id'];
+		list($photo_id, $ignore) = explode("_", $id, 2);
+
+		$photo = instagram_photos_get_by_id($photo_id);
+
+		$owner_id = $row['user']['id'];
+		$insta_user = instagram_users_get_by_id($owner_id);
+
+		if (! $insta_user){
+			$insta_user = instagram_users_register_user($owner_id, $row['user']['username']);
+		}
+
+		if (! $insta_user){
+			return not_okay();
+		}
+
+		$user = users_get_by_id($insta_user['user_id']);
+
+		$id_path = storage_id_to_path($photo_id);
+		$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
+
+		$full_path = "{$root_path}{$photo_id}_{$photo_secret}.jpg";
+
+		if ((file_exists($full_path) && $photo) && (! $more['force'])){
+
+			return okay(array(
+				'skipped' => 1
+			));
+		}
+
+		$rsp = http_get($photo_url);
+
+		if (! $rsp['ok']){
+			return $rsp;
+		}
+
+		$rsp = storage_write_file($full_path, $rsp['body']);
+
+		if (! $rsp['ok']){
+			return $rsp;
+		}
+
+		$data = array(
+			'id' => $photo_id,
+			'user_id' => $user['id'],
+			'secret' => $photo_secret,
+			'filter' => $row['filter'],
+			'created' => $row['created_time'],
+			'caption' => $row['caption']['text'],
+			'perms' => 0,
+		);
+
+		if ($loc = $d['location']){
+			$data['latitude'] = $loc['latitude'];
+			$data['longitude'] = $loc['longitude'];
+			$data['place_id'] = $loc['id'];
+		}
+
+		if ($photo){
+			$rsp = instagram_photos_update_photo($photo, $data);
+		}
+
+		else {
+			$rsp = instagram_photos_add_photo($data);
+		}
+
+		if ($link = $d['link']){
+
+			$short_code = basename($link);
+
+			$lookup = instagram_photos_lookup_get_by_photo_id($photo_id);
+
+			if ($lookup['short_code'] != $short_code){
+				$update = array('short_code' => $short_code);
+				instagram_photos_lookup_update($lookup, $update);
+			}
+		}
+
+		if (! $rsp['ok']){
+			return $rsp;
+		}
+
+		return okay(array(
+			'photo' => $photo,
+			'path' => $full_path
+		));
 
 	}
 
