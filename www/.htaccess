@@ -81,4 +81,5 @@ RewriteRule ^user/[0-9]+/photos/([0-9]+)/?$  		instagram_photo.php?id=$1&%{QUERY
 
 RewriteRule ^user/([0-9]+)/photos(/page([0-9]+))?/?$    instagram_photos_user.php?instagram_id=$1&page=$3&%{QUERY_STRING} [L]
 
+RewriteRule ^user/([0-9]+)/likes/([0-9]+)(/page([0-9]+))?/?$    instagram_likes_user.php?instagram_id=$1&photo_owner_id=$2&page=$4&%{QUERY_STRING} [L]
 RewriteRule ^user/([0-9]+)/likes(/page([0-9]+))?/?$    instagram_likes_user.php?instagram_id=$1&page=$3&%{QUERY_STRING} [L]

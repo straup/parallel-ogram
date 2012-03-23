@@ -34,8 +34,19 @@
 	if ($page = get_int32("page")){
 		$more['page'] = $page;
 	}
-	
+
+	if ($photo_owner_id = get_int32("photo_owner_id")){
+
+		if ($instagram_user = instagram_users_get_by_id($photo_owner_id)){
+			$more['owner_id'] = $instagram_user['user_id'];
+
+			$photo_owner = users_get_by_id($instagram_user['user_id']);
+			$GLOBALS['smarty']->assign_by_ref("photo_owner", $photo_owner);
+		}
+	}
+
 	$rsp = instagram_likes_for_user($owner, $more);
+
 	$GLOBALS['smarty']->assign_by_ref("photos", $rsp['rows']);
 	$GLOBALS['smarty']->assign_by_ref("owner", $owner);
 

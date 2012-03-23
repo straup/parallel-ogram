@@ -25,6 +25,13 @@
 		$enc_user = AddSlashes($user['id']);
 
 		$sql = "SELECT * FROM InstagramLikes WHERE user_id='{$enc_user}'";
+
+		if (isset($more['owner_id'])){
+
+			$enc_owner = AddSlashes($more['owner_id']);
+			$sql .= " AND owner_id='{$enc_owner}'";
+		}
+
 		$sql .= " ORDER BY photo_id DESC";
 
 		$rsp = db_fetch_paginated_users($cluster_id, $sql, $more);
@@ -37,8 +44,12 @@
 
 		foreach ($rsp['rows'] as $row){
 			$photo = instagram_photos_get_by_id($row['photo_id']);
-			$photo['owner'] = users_get_by_id($row['owner_id']);
+			$owner = users_get_by_id($row['owner_id']);
 
+			$insta_user = instagram_users_get_by_user_id($owner['id']);
+			$owner['instagram_id'] = $insta_user['instagram_id'];
+
+			$photo['owner'] = $owner;
 			$photos[] = $photo;
 		}
 
