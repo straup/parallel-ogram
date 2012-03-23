@@ -12,19 +12,21 @@
 <div id="main">
 
 	<div id="nav">
+{if 0}
 		<div id="login" style="float: left;">
 			<a href="{$cfg.abs_root_url}">parallel-ogram</a>
 		</div>
+{/if}
 		<div id="login" style="float: right;">
 {if $cfg.user.id}
-			you are signed in <strong>{$cfg.user.username|escape}</strong>
+			you are signed in as <strong>{$cfg.user.username|escape}</strong>
 			|
 			<a href="{$cfg.user|@instagram_urls_for_user_photos}">photos</a>
 			|
-			<a href="{$cfg.abs_root_url}signout/">signout</a>
+			<a href="{$cfg.abs_root_url}signout/">sign out</a>
 {else}
 	{if $cfg.enable_feature_signin}
-			<a href="{$cfg.abs_root_url}signin/">signin with instagram</a>
+			<a href="{$cfg.abs_root_url}signin/">sign in with instagram</a>
 	{/if}
 {/if}
 		</div>

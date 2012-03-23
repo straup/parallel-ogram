@@ -16,6 +16,11 @@ body {
 
 #nav {
 	padding: 0.5em 1em;
+	font-size:small;
+	margin-bottom:100px;
+	margin-top:10px;
+	margin-right:10px;
+	color:#999;
 }
 
 #footer {
@@ -24,7 +29,8 @@ body {
 }
 
 #content {
-	padding: 2em;
+    margin-left:100px;
+    margin-bottom:50px;
 }
 
 h1 {

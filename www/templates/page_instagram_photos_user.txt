@@ -13,6 +13,11 @@
 </div>
 
 <br clear="all" />
+
+<div style="text-align:center;">
 {include file="inc_pagination.txt"}
+</div>
+
+</div>
 
 {include file="inc_foot.txt"}

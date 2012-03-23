@@ -27,7 +27,7 @@
 	}
 
 	$more = array(
-		'per_page' => 9
+		'per_page' => 3
 	);
 
 	if ($page = get_int32("page")){
