@@ -62,7 +62,10 @@
 			return not_okay("dberr_instagramuser");
 		}
 
-		return $instagram_user;
+		return okay(array(
+			'user' => $user,
+			'instagram_user' => $instagram_user,
+		));
 	}
 
 	#################################################################

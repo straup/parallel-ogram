@@ -16,6 +16,9 @@ There was a database-related problem creating your account. Sad face.
 {elseif $error.dberr_instagramuser}
 There was a database-related problem creating your account, specifically associating it with your instagram account. Curses!
 
+{elseif $error.dbupdate_instagramuser}
+There was a database-related problem updating your Instagram account settings. Blargh.
+
 {else}
 Ack! The INVISIBLE ERROR CAT hisses at you...
 {/if}

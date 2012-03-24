@@ -108,11 +108,14 @@
 		$insta_user = instagram_users_get_by_id($owner_id);
 
 		if (! $insta_user){
-			$insta_user = instagram_users_register_user($owner_id, $row['user']['username']);
-		}
 
-		if (! $insta_user){
-			return not_okay();
+			$rsp = instagram_users_register_user($owner_id, $row['user']['username']);
+
+			if (! $rsp['ok']){
+				return $rsp;
+			}
+
+			$insta_user = $rsp['instagram_user'];
 		}
 
 		$user = users_get_by_id($insta_user['user_id']);

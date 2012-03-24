@@ -58,33 +58,46 @@
 
 		$instagram_id = $rsp['user']['id'];
 		$username = $rsp['user']['username'];
-		$email = "{$instagram_id}@donotsend-instagram.com";
 
-		$password = random_string(32);
+		# Check to see if this copy of parallel-ogram has created an
+                # entry for this user (probably as part of the likes import).
+		# If so then just update the oauth token. 
 
-		$user = users_create_user(array(
-			"username" => $username,
-			"email" => $email,
-			"password" => $password,
-		));
+		if ($instagram_user = instagram_users_get_by_id($instagram_id)){
 
-		if (! $user){
-			$GLOBALS['error']['dberr_user'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_instagram_oauth.txt");
-			exit();
+			$user = users_get_by_id($instagram_user['user_id']);
+
+			$update = array(
+				'oauth_token' => $oauth_token,
+			);
+
+			$rsp = instagram_users_update_user($instagram_user, $update);
+
+			if (! $rsp['ok']){
+
+				$GLOBALS['error']['dbupdate_instagramuser'] = 1;
+				$GLOBALS['smarty']->display("page_auth_callback_instagram_oauth.txt");
+				exit();
+			}
+
 		}
 
-		$instagram_user = instagram_users_create_user(array(
-			'user_id' => $user['id'],
-			'oauth_token' => $oauth_token,
-			'instagram_id' => $instagram_id,
-		));
+		# Otherwise this a brand new user
 
-		if (! $instagram_user){
-			$GLOBALS['error']['dberr_instagramuser'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_instagram_oauth.txt");
-			exit();
+		else {
+
+			$rsp = instagram_users_register_user($instagram_id, $username, $oauth_token);
+
+			if (! $rsp['ok']){
+
+				$GLOBALS['error'][ $rsp['error'] ] = 1;
+				$GLOBALS['smarty']->display("page_auth_callback_instagram_oauth.txt");
+				exit();
+			}
+
+			$user = $rsp['user'];
 		}
+
 	}
 
 	# Okay, now finish logging the user in (setting cookies, etc.) and
