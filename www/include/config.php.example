@@ -13,6 +13,9 @@
 	$GLOBALS['cfg']['enable_feature_api'] = 1;
 	$GLOBALS['cfg']['enable_feature_api_documentation'] = 1;
 
+	$GLOBALS['cfg']['enable_feature_backups'] = 1;
+	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
+
 	#
 	# Things you'll certainly need to tweak
 	#

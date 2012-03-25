@@ -4,6 +4,13 @@
 
 	login_ensure_loggedin();
 
+	if (! $GLOBALS['cfg']['enable_feature_backups_registration']){
+
+		if (! $GLOBALS['cfg']['user']['backup_photos']){
+			error_disabled();
+		}
+	}
+
 	$crumb_key = 'logout';
 	$GLOBALS['smarty']->assign("crumb_key", $crumb_key);
 
