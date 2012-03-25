@@ -15,9 +15,7 @@
 	loadlib("backfill");
 	loadlib("instagram_likes_import");
 
-	function _backup($insta_user, $more=array()){
-
-		$user = users_get_by_id($insta_user['user_id']);
+	function _backup($user, $more=array()){
 
 		$likes_more = array(
 			'per_page' => 1
@@ -37,8 +35,8 @@
 		dumper($rsp);
 	}
 
-	$sql = "SELECT * FROM InstagramUsers WHERE backup_photos=1";
-	backfill_db_users($sql, '_backup');
+	$sql = "SELECT * FROM users WHERE backup_photos=1";
+	backfill_db_main($sql, '_backup');
 
 	exit();
 ?>

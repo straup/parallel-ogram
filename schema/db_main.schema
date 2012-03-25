@@ -10,9 +10,11 @@ CREATE TABLE `users` (
   `conf_code` char(24) DEFAULT NULL,
   `confirmed` int(10) unsigned NOT NULL,
   `cluster_id` tinyint(3) unsigned NOT NULL,
+  `backup_photos` TINYINT(3) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `by_email` (`email`),
-  UNIQUE KEY `by_username` (`username`,`deleted`)
+  UNIQUE KEY `by_username` (`username`,`deleted`),
+  KEY `backup_users` (`backup_photos`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `users_password_reset`;
@@ -32,11 +34,9 @@ CREATE TABLE `InstagramUsers` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `instagram_id` varchar(20) NOT NULL,
   `oauth_token` char(48) NOT NULL,
-  `backup_photos` TINYINT(3) UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `by_instagram_id` (`instagram_id`),
-  KEY `by_token` (`oauth_token`),
-  KEY `backup_users` (`backup_photos`)
+  KEY `by_token` (`oauth_token`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `InstagramPhotosLookup`;

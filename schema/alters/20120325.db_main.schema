@@ -1,0 +1,4 @@
+ALTER TABLE `InstagramUsers` DROP `backup_photos`;
+
+ALTER TABLE `users` ADD `backup_photos` TINYINT(3) UNSIGNED NOT NULL;
+CREATE INDEX `backup_photos` ON `users` (`backup_photos`);

@@ -13,6 +13,42 @@
 
 	#################################################################
 
+	function backfill_db_main($sql, $callback, $more=array()){
+
+		$page_count = null;
+		$total_count = null;
+
+		$per_page = ($more['per_page']) ? $more['per_page'] : 1000;
+
+		$args = array(
+			'per_page' => $per_page,
+			'page' => 1,
+		);
+
+		while((! isset($page_count)) || ($page_count >= $args['page'])){
+
+			$rsp = db_fetch_paginated($sql, $args);
+
+			if (! $rsp['ok']){
+				break;
+			}
+
+			if (! isset($page_count)){
+				$page_count = $rsp['pagination']['page_count'];
+				$total_count = $rsp['pagination']['total_count'];
+			}
+
+			foreach ($rsp['rows'] as $row){
+				call_user_func_array($callback, array($row));
+				backfill_tick();
+			}
+
+			$args['page'] ++;
+		}
+	}
+
+	#################################################################
+
 	function backfill_db_users($sql, $callback, $more=array()){
 
 		$GLOBALS['backfill_tick'] = 0;

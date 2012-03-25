@@ -20,10 +20,12 @@
 		<div id="login" style="float: right;">
 {if $cfg.user.id}
 			you are signed in as <strong>{$cfg.user.username|escape}</strong>
+{if $cfg.user.backup_photos}
 			|
 			<a href="{$cfg.user|@instagram_urls_for_user_photos}">photos</a>
 			|
 			<a href="{$cfg.user|@instagram_urls_for_user_likes}">likes</a>
+{/if}
 			|
 			<a href="{$cfg.abs_root_url}signout/">sign out</a>
 {else}

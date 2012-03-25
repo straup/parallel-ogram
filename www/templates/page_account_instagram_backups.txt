@@ -1,0 +1,37 @@
+{capture assign="page_title"}account | instagram | backups{/capture}
+{include file="inc_head.txt"}
+
+{if $update}
+{if $success}
+<p class="confirm">Okay! Your account settings have been updated.</p>
+{else}
+<p class="error">Hrmph... there was a problem updating the database!</p>
+{/if}
+
+{/if}
+
+<form method="POST">
+{$crumb_key|crumb_input}
+<input type="hidden" name="done" value="1" />
+
+{if $owner.backup_photos}
+
+<h2>You are currently backing up your Instagram photos</h2>
+
+<input type="checkbox" name="disable_backups" value="1" />
+<label for="disable_backups">Stop doing this!</label>
+{else}
+
+<h2>You are not backing up your Instagram photos</h2>
+
+<input type="checkbox" name="enable_backups" value="1" />
+<label for="enable_backups">Please, make the backups...</label>
+
+{/if}
+
+<br /><br />
+<input type="submit" value="MAKE IT SO" />
+
+</form>
+
+{include file="inc_foot.txt"}
