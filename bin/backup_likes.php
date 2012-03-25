@@ -19,9 +19,21 @@
 
 		$user = users_get_by_id($insta_user['user_id']);
 
-		$more = array('force' => 1);
+		$likes_more = array(
+			'per_page' => 1
+		);
 
-		$rsp = instagram_likes_import_for_user($user, $more);
+		$rsp = instagram_likes_for_user($user, $likes_more);
+
+		$import_more = array();
+
+		if (($rsp['ok']) && (count($rsp['rows']))){
+
+			$like = $rsp['rows'][0];
+			$import_more['max_like_id'] = $like['id'];
+		}
+
+		$rsp = instagram_likes_import_for_user($user, $import_more);
 		dumper($rsp);
 	}
 

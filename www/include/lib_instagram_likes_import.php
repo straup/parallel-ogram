@@ -24,7 +24,13 @@
 			'access_token' => $insta_user['oauth_token'],
 		);
 
-		# TO DO: max id stuff
+		if (isset($more['max_like_id'])){
+
+			# this always fails because... I have no idea
+			# (20120324/straup)
+
+			# $args['max_like_id'] = $more['max_like_id'];
+		}
 
 		$count_imported = 0;
 		$count_skipped = 0;
