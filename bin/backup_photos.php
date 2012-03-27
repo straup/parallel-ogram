@@ -25,7 +25,6 @@
 
 		$import_more = array(
 			'min_timestamp' => $rsp['rows'][0]['created'],
-			
 		);
 
 		$rsp = instagram_photos_import_for_user($user, $import_more);

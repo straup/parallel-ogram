@@ -2,7 +2,7 @@
 
 	include("include/init.php");
 
-	login_ensure_loggedin();
+	login_ensure_loggedin("/account/instagram/backups/");
 
 	if (! $GLOBALS['cfg']['enable_feature_backups_registration']){
 
