@@ -17,18 +17,28 @@
 
 	function _backup($user, $more=array()){
 
+		echo "backup photos for {$user['username']}\n";
+
 		$photos_more = array(
 			'per_page' => 1
 		);
 
-		$rsp = instagram_photos_for_user($user, $photos_more);
+		$import_more = array();
 
-		$import_more = array(
-			'min_timestamp' => $rsp['rows'][0]['created'],
-		);
+		if ($last_update = json_decode($user['backup_last_update'], 'as hash')){
+
+			$rsp = instagram_photos_for_user($user, $photos_more);
+
+			$import_more['min_timestamp'] = $rsp['rows'][0]['created'];
+		}
 
 		$rsp = instagram_photos_import_for_user($user, $import_more);
 		dumper($rsp);
+
+		if ($rsp['ok']){
+			$update = array('backup_last_update' => json_encode($rsp));
+			users_update_user($user, $update);
+		}
 	}
 
 	$sql = "SELECT * FROM users WHERE backup_photos=1";

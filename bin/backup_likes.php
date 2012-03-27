@@ -21,18 +21,27 @@
 			'per_page' => 1
 		);
 
-		$rsp = instagram_likes_for_user($user, $likes_more);
+#		if ($last_update = json_decode($user['backup_last_update'], 'as hash')){
 
-		$import_more = array();
+			$rsp = instagram_likes_for_user($user, $likes_more);
 
-		if (($rsp['ok']) && (count($rsp['rows']))){
+			$import_more = array();
 
-			$like = $rsp['rows'][0];
-			$import_more['max_like_id'] = $like['id'];
-		}
+			if (($rsp['ok']) && (count($rsp['rows']))){
+
+				$like = $rsp['rows'][0];
+				$import_more['max_like_id'] = $like['id'];
+			}
+#		}
 
 		$rsp = instagram_likes_import_for_user($user, $import_more);
 		dumper($rsp);
+
+		if ($rsp['ok']){
+			$update = array('backup_last_update' => json_encode($rsp));
+			users_update_user($user, $update);
+		}
+
 	}
 
 	$sql = "SELECT * FROM users WHERE backup_photos=1";

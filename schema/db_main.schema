@@ -11,6 +11,7 @@ CREATE TABLE `users` (
   `confirmed` int(10) unsigned NOT NULL,
   `cluster_id` tinyint(3) unsigned NOT NULL,
   `backup_photos` TINYINT(3) UNSIGNED NOT NULL,
+  `backup_last_update` TEXT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `by_email` (`email`),
   UNIQUE KEY `by_username` (`username`,`deleted`),
