@@ -65,6 +65,12 @@
 		$enc_user = AddSlashes($user['id']);
 
 		$sql = "SELECT * FROM InstagramPhotos WHERE user_id='{$enc_user}'";
+
+		if (isset($more['filter'])){
+			$enc_filter = AddSlashes($more['filter']);
+			$sql .= " AND filter='{$enc_filter}'";
+		}
+
 		$sql .= " ORDER BY created DESC";
 
 		$rsp = db_fetch_paginated_users($cluster_id, $sql, $more);

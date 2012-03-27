@@ -33,11 +33,23 @@
 	if ($page = get_int32("page")){
 		$more['page'] = $page;
 	}
+
+	if ($filter = get_str("filter")){
+		$more['filter'] = $filter;
+	}
 	
 	$rsp = instagram_photos_for_user($owner, $more);
 
 	$GLOBALS['smarty']->assign_by_ref("photos", $rsp['rows']);
 	$GLOBALS['smarty']->assign_by_ref("owner", $owner);
+
+	$pagination_url = instagram_urls_for_user_photos($owner);
+
+	if (isset($more['filter'])){
+		$pagination_url .= htmlspecialchars($more['filter']) . "/";
+	}
+
+	$GLOBALS['smarty']->assign("pagination_url", $pagination_url);
 
 	$GLOBALS['smarty']->display("page_instagram_photos_user.txt");
 	exit();
