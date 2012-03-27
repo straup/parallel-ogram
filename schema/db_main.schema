@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `InstagramUsers`;
 CREATE TABLE `InstagramUsers` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `instagram_id` varchar(20) NOT NULL,
-  `oauth_token` char(48) NOT NULL,
+  `oauth_token` char(64) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `by_instagram_id` (`instagram_id`),
   KEY `by_token` (`oauth_token`)
