@@ -1,0 +1,10 @@
+CREATE TABLE `InstagramBackups` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `type_id` TINYINT(3) UNSIGNED NOT NULL,
+  `disabled` TINYINT(3) UNSIGNED NOT NULL,
+  `created` INT(11) UNSIGNED NOT NULL,
+  `last_update` INT(11) UNSIGNED NOT NULL,
+  `details` TEXT,
+  UNIQUE KEY (`user_id`, `type_id`),
+  KEY `by_type` (`type_id`, `disabled`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

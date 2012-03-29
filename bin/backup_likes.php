@@ -5,23 +5,21 @@
 
 	set_time_limit(0);
 
-	# Honestly, it feels a bit weird to do this in a backfill script
-	# and I bet there will be enough administrivia around backups
-	# (maybe?) that they will need to be moved in to their own table
-	# but for now... it works. (20120321/straup)
-
 	include("include/init.php");
 
 	loadlib("backfill");
+	loadlib("instagram_backups");
 	loadlib("instagram_likes_import");
 
-	function _backup($user, $more=array()){
+	function _backup($backup, $more=array()){
+
+		$user = users_get_by_id($backup['user_id']);
 
 		$likes_more = array(
 			'per_page' => 1
 		);
 
-#		if ($last_update = json_decode($user['backup_last_update'], 'as hash')){
+		if ($last_update = json_decode($backup['details'], 'as hash')){
 
 			$rsp = instagram_likes_for_user($user, $likes_more);
 
@@ -32,19 +30,26 @@
 				$like = $rsp['rows'][0];
 				$import_more['max_like_id'] = $like['id'];
 			}
-#		}
+		}
 
 		$rsp = instagram_likes_import_for_user($user, $import_more);
 		dumper($rsp);
 
 		if ($rsp['ok']){
-			$update = array('backup_last_update' => json_encode($rsp));
-			users_update_user($user, $update);
+
+			$update = array(
+				'details' => json_encode($rsp)
+			);
+
+			instagram_backups_update($backup, $update);
 		}
 
 	}
 
-	$sql = "SELECT * FROM users WHERE backup_photos=1";
+	$map = instagram_backups_type_map("string keys");
+	$enc_type = AddSlashes($map['likes']);
+
+	$sql = "SELECT * FROM InstagramBackups WHERE type_id='{$enc_type}' AND disabled=0";
 	backfill_db_main($sql, '_backup');
 
 	exit();

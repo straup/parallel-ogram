@@ -1,6 +1,7 @@
 <?php
 
 	include("include/init.php");
+	loadlib("instagram_backups");
 
 	login_ensure_loggedin("/account/instagram/backups/");
 
@@ -16,32 +17,35 @@
 
 	if (post_isset('done') && crumb_check($crumb_key)){
 
-		$update = array();
-
 		if (post_int32("enable_backups")){
-			$update['backup_photos'] = 1;
+
+			$backups = instagram_backups_for_user($GLOBALS['cfg']['user']);
+
+			if (count($backups['rows'])){
+				$rsp = instagram_backups_reenable_user($GLOBALS['cfg']['user']);
+			}
+
+			else {
+				$rsp = instagram_backups_register_user($GLOBALS['cfg']['user']);
+			}
 		}
 
 		else if (post_int32("disable_backups")){
-			$update['backup_photos'] = 0;
+			$rsp = instagram_backups_disable_user($GLOBALS['cfg']['user']);
 		}
 
 		else {}
 
-		if (count($update)){
-
-			$ok = users_update_user($GLOBALS['cfg']['user'], $update);
-
-			if ($ok){
-				$GLOBALS['cfg']['user'] = array_merge($GLOBALS['cfg']['user'], $update);
-			}
-
+		if ($rsp){
 			$GLOBALS['smarty']->assign("update", 1);
-			$GLOBALS['smarty']->assign("success", $ok);
+			$GLOBALS['smarty']->assign("success", $rsp['ok']);
 		}
 	}
 
+	$backups = instagram_backups_for_user($GLOBALS['cfg']['user']);
+
 	$GLOBALS['smarty']->assign_by_ref("owner", $GLOBALS['cfg']['user']);
+	$GLOBALS['smarty']->assign_by_ref("backups", $backups['rows']);
 
 	$GLOBALS['smarty']->display("page_account_instagram_backups.txt");
 	exit();

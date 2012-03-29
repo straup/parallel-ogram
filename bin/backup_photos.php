@@ -13,10 +13,12 @@
 	include("include/init.php");
 
 	loadlib("backfill");
+	loadlib("instagram_backups");
 	loadlib("instagram_photos_import");
 
-	function _backup($user, $more=array()){
+	function _backup($backup, $more=array()){
 
+		$user = users_get_by_id($backup['user_id']);
 		echo "backup photos for {$user['username']}\n";
 
 		$photos_more = array(
@@ -25,7 +27,7 @@
 
 		$import_more = array();
 
-		if ($last_update = json_decode($user['backup_last_update'], 'as hash')){
+		if ($last_update = json_decode($backup['details'], 'as hash')){
 
 			$rsp = instagram_photos_for_user($user, $photos_more);
 
@@ -36,12 +38,19 @@
 		dumper($rsp);
 
 		if ($rsp['ok']){
-			$update = array('backup_last_update' => json_encode($rsp));
-			users_update_user($user, $update);
+
+			$update = array(
+				'details' => json_encode($rsp)
+			);
+
+			instagram_backups_update($backup, $update);
 		}
 	}
 
-	$sql = "SELECT * FROM users WHERE backup_photos=1";
+	$map = instagram_backups_type_map("string keys");
+	$enc_type = AddSlashes($map['photos']);
+
+	$sql = "SELECT * FROM InstagramBackups WHERE type_id='{$enc_type}' AND disabled=0";
 	backfill_db_main($sql, '_backup');
 
 	exit();
