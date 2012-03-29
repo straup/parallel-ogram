@@ -11,10 +11,13 @@
 	$GLOBALS['cfg']['site_disabled_retry_after'] = 0;	# seconds; if set will return HTTP Retry-After header
 
 	$GLOBALS['cfg']['enable_feature_api'] = 1;
-	$GLOBALS['cfg']['enable_feature_api_documentation'] = 1;
+	$GLOBALS['cfg']['enable_feature_api_documentation'] = 0;
 
 	$GLOBALS['cfg']['enable_feature_backups'] = 1;
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
+
+	$GLOBALS['cfg']['enable_feature_invite_codes'] = 0;
+	$GLOBALS['cfg']['invite_codes_allow_signedin_users'] = 0;
 
 	#
 	# Things you'll certainly need to tweak
