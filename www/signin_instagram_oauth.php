@@ -19,7 +19,7 @@
 
 	# TO DO: pass redir around...
 
-	$url = instagram_api_get_auth_url();
+	$url = instagram_api_get_auth_url($redir);
 
 	header("location: {$url}");
 	exit();

@@ -46,9 +46,13 @@
 
 	#################################################################
 
-	function instagram_api_get_auth_url(){
+	function instagram_api_get_auth_url($redir=null){
 
 		$callback = $GLOBALS['cfg']['abs_root_url'] . $GLOBALS['cfg']['instagram_oauth_callback'];
+
+		if ($redir){
+	 		$callback .= "?redir=" . urlencode($redir);
+		}
 
 		$oauth_key = $GLOBALS['cfg']['instagram_oauth_key'];
         	$oauth_redir = urlencode($callback);
@@ -60,9 +64,13 @@
 
 	#################################################################
 
-	function instagram_api_get_auth_token($code){
+	function instagram_api_get_auth_token($code, $redir=null){
 
 		$callback = $GLOBALS['cfg']['abs_root_url'] . $GLOBALS['cfg']['instagram_oauth_callback'];
+
+		if ($redir){
+			$callback .= "?redir=" . urlencode($redir);
+		}
 
 		$args = array(
 			'client_id' => $GLOBALS['cfg']['instagram_oauth_key'],
