@@ -17,7 +17,7 @@
 
 		<a href="{$cfg.abs_root_url}god/">this is <strong>GOD</strong></a>
 		|
-		you are signed in as <strong>{$cfg.user.username|escape}</strong>
+		you are signed in as <strong><a href="{$cfg.abs_root_url}god/user/{$cfg.user.id|escape}/">{$cfg.user.username|escape}</a></strong>
 
 		</div>
 	</div>
