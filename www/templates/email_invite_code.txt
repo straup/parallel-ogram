@@ -5,13 +5,11 @@ Hello!
 
 Your invite code is:
 
-	{$cfg.abs_root_url}invite/{$invite.code|escape}/
+	{$cfg.abs_root_url}invite/{$invite.code|escape}/?redir=account/instagram/backups/
 
 You should only need to visit that page once. If you've not already logged in to {$cfg.site_name} then you'll be bounced throught the Instagram API authentication flow so that pua may be granted "read" permissions to view (and backup) your photos.
 
-Once you've done that you'll still need to confirm that you want the site to backup your photos. That's done here:
-
-	{$cfg.abs_root_url}account/instagram/backups/
+Once you've done that you'll still need to confirm that you want the site to backup your photos.
 
 There may be some bugs left in the mix but otherwise it should be All Good (tm).
 

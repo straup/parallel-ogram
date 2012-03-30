@@ -19,11 +19,11 @@
 			'per_page' => 1
 		);
 
+		$import_more = array();
+
 		if ($last_update = json_decode($backup['details'], 'as hash')){
 
 			$rsp = instagram_likes_for_user($user, $likes_more);
-
-			$import_more = array();
 
 			if (($rsp['ok']) && (count($rsp['rows']))){
 
