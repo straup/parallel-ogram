@@ -1,6 +1,5 @@
 
 body {
-	text-align: center;
 	background-color: #fff;
 	margin: 0;
 	padding: 0;
@@ -12,6 +11,11 @@ body {
 	text-align: left;
 	background-color: #fff;
 	padding: 0;
+}
+
+#god {
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
 #nav {

@@ -1,0 +1,25 @@
+{utf8_headers}
+<html>
+	<head>
+		<title>{$cfg.site_name|escape} | god{if $page_title} | {$page_title|escape}{/if}</title>
+
+		<meta content='width=device-width,maximum-scale=1.0,initial-scale=1.0,user-scalable=0' name='viewport'>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+
+		<link rel="stylesheet" type="text/css" href="{$cfg.abs_root_url}css/main.css" />
+		<script type="text/javascript" src="{$cfg.abs_root_url}javascript/jquery-1.7.1.min.js"></script>
+	</head>
+
+	<body>
+
+	<div id="nav">
+		<div id="login" style="float: right;">
+
+		<a href="{$cfg.abs_root_url}god/">this is <strong>GOD</strong></a>
+		|
+		you are signed in as <strong>{$cfg.user.username|escape}</strong>
+
+		</div>
+	</div>
+
+	<div id="god">
