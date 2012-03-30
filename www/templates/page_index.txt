@@ -1,5 +1,5 @@
 {include file='inc_head.txt'}
 
-<p>this you can't that, instantly!</p>
+<p>this is parallel-ogram. yes it is.</p>
 
 {include file='inc_foot.txt'}
