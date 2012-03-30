@@ -16,7 +16,7 @@
 	#
 
 	$backups = instagram_backups_for_user($GLOBALS['cfg']['user']);
-	$registered = (count($backups['rows'])) ? 0 : 0;
+	$registered = (count($backups['rows'])) ? 1 : 0;
 
 	#
 
