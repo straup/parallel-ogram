@@ -18,6 +18,7 @@
 
 	$GLOBALS['cfg']['enable_feature_invite_codes'] = 0;
 	$GLOBALS['cfg']['invite_codes_allow_signedin_users'] = 0;
+	$GLOBALS['cfg']['crypto_invite_secret'] = '';
 
 	#
 	# Things you'll certainly need to tweak

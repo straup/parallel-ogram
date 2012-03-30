@@ -76,8 +76,8 @@ RewriteRule  ^api/rest/(.*)/?$		api_rest.php?method=$1&%{QUERY_STRING}		[L]
 
 # Invite code stuff
 
-# RewriteRule ^invite/?$						invite.php?%{QUERY_STRING} [L]
-# RewriteRule ^invite(?:/([^/]+))?/?$				invite.php?code=$1&%{QUERY_STRING} [L]
+RewriteRule ^invite/?$						invite.php?%{QUERY_STRING} [L]
+RewriteRule ^invite(?:/([^/]+))?/?$				invite.php?code=$1&%{QUERY_STRING} [L]
 
 # Instagram stuff
 
