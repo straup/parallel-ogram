@@ -12,7 +12,13 @@
 
 	function login_ensure_loggedin($redir=null){
 
-		if ($GLOBALS['cfg']['user']['id']) return;
+		if ($GLOBALS['cfg']['user']['id']){
+			return;
+		}
+
+		if (! $redir){
+			$redir = ltrim($_SERVER['REQUEST_URI'], "/");
+		}
 
 		if ($redir){
 			header("location: {$GLOBALS['cfg']['abs_root_url']}signin/?redir=".urlencode($redir));
