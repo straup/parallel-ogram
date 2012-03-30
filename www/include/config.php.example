@@ -6,6 +6,7 @@
 	$GLOBALS['cfg'] = array();
 
 	$GLOBALS['cfg']['site_name'] = 'parallel-ogram';
+	$GLOBALS['cfg']['environment'] = 'prod';
 
 	$GLOBALS['cfg']['site_disabled'] = 0;
 	$GLOBALS['cfg']['site_disabled_retry_after'] = 0;	# seconds; if set will return HTTP Retry-After header
@@ -13,7 +14,7 @@
 	# Things you'll need to tweak
 
 	# Setting up the database
-	# see also: https://github.com/straup/flamework-tools/blob/master/bin/setup-db.sh
+	# See also: https://github.com/straup/flamework-tools/blob/master/bin/setup-db.sh
 
 	$GLOBALS['cfg']['db_main'] = array(
 		'host'	=> 'DATABASE_HOST',
@@ -23,22 +24,51 @@
 		'auto_connect' => 0,
 	);
 
-	# Creating secret keys for your website
+	# Creating secret keys for your website - these are important.
 	# See also: parallel-ogram/bin/generate_secret.php
 
 	$GLOBALS['cfg']['crypto_cookie_secret'] = '';
 	$GLOBALS['cfg']['crypto_password_secret'] = '';
 	$GLOBALS['cfg']['crypto_crumb_secret'] = '';
 
-	# Backups
+	# Backups - by default anyone who knows where your copy of
+	# parallel-ogram is (on the Internet) could register to have
+	# their photos (and likes) backed up. If you don't want to
+	# let anyone else backup their photos then you should disable
+	# the 'enable_feature_backups_registration' flag. If you want
+	# to limit who can register take a look at the invite code
+	# flags below.
 
 	$GLOBALS['cfg']['enable_feature_backups'] = 1;
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
 
-	# Invite codes
+	# Invite codes – these are used to limit who can register
+	# to have their photos backed up. You'll need to do a
+	# few things to enable this:
+
+	# 1) enable the feature flags below for invite codes and
+	#    god auth (which is explained later)
+
+	# 2) generate a new secret for encrypting invite cookies
+	#    parallel-ogram/bin/generate_secret.php
+
+	# 3) set up poorman's 'god auth' – basically this is just
+	#    restricting access to a list of logged in user using
+	#    cookies; it works but I wouldn't call it "secure"
+
+	# Once that's done you can manage or create new invites
+	# here:
+
+	# $GLOBALS['cfg']['abs_root_url']/god/invites/
+	# $GLOBALS['cfg']['abs_root_url']/god/invites/generate/
+
+	# In addition, if a user tries to go to the backup page
+	# they've got stopped by an invite code wall which will
+	# allow them to request an invite code but you'll still
+	# need to send it manually (by pressing a button on the
+	# god page).
 
 	$GLOBALS['cfg']['enable_feature_invite_codes'] = 0;
-	$GLOBALS['cfg']['invite_codes_allow_signedin_users'] = 0;
 
 	$GLOBALS['cfg']['crypto_invite_secret'] = '';
 
@@ -46,13 +76,22 @@
 
 	$GLOBALS['cfg']['auth_poormans_god_auth'] = array(
 
+	#       as in a user's 'id' from the 'users' table
+	#	in db_main
+
 	#	'0' => array(
 	#		'roles' => array('admin')
 	#	),
 
 	);
 
-	# Things you may need to tweak (but probably not)
+	# Things you may want to tweak (but otherwise don't need to worry about)
+
+	$GLOBALS['cfg']['enable_feature_signup'] = 1;
+	$GLOBALS['cfg']['enable_feature_signin'] = 1;
+	$GLOBALS['cfg']['enable_feature_persistent_login'] = 1;
+	$GLOBALS['cfg']['enable_feature_account_delete'] = 0;
+	$GLOBALS['cfg']['enable_feature_password_retrieval'] = 0;
 
 	$GLOBALS['cfg']['enable_feature_api'] = 0;
 	$GLOBALS['cfg']['enable_feature_api_documentation'] = 0;
@@ -62,10 +101,6 @@
 
 	$GLOBALS['cfg']['smarty_template_dir'] = realpath(dirname(__FILE__) . '/../templates/');
 	$GLOBALS['cfg']['smarty_compile_dir'] = realpath(dirname(__FILE__) . '/../templates_c/');
-
-	#
-	# Things you may need to tweak
-	#
 
 	$GLOBALS['cfg']['auth_cookie_domain'] = parse_url($GLOBALS['cfg']['abs_root_url'], 1);
 	$GLOBALS['cfg']['auth_cookie_name'] = md5($GLOBALS['cfg']['auth_cookie_domain']) . '-a';
@@ -79,18 +114,6 @@
 	$GLOBALS['cfg']['email_from_name']	= 'flamework app';
 	$GLOBALS['cfg']['email_from_email']	= 'admin@ourapp.com';
 	$GLOBALS['cfg']['auto_email_args']	= '-fadmin@ourapp.com';
-
-
-	#
-	# Set this to 'prod' for production use
-	#
-
-	$GLOBALS['cfg']['environment'] = 'dev';
-
-
-	#
-	# Things you can probably not worry about
-	#
 
 	$GLOBALS['cfg']['user'] = null;
 
@@ -112,39 +135,8 @@
 
 	$GLOBALS['cfg']['db_profiling'] = 0;
 
-
-	#
-	# db_enable_poormans_*
-	#
-	# If enabled, then the relevant database configs and handles
-	# will be automagically prepopulated using the relevant information
-	# in 'db_main'
-	#
-
-	#
-	# You should enable/set these flags if you want to
-	# use flamework in a setting where you only have access
-	# to a single database.
-	#
-
 	$GLOBALS['cfg']['db_enable_poormans_federation'] = 1;
-
-	$GLOBALS['cfg']['db_enable_poormans_slaves'] = 0;
-
-	$GLOBALS['cfg']['db_poormans_slaves_user'] = '';
-	$GLOBALS['cfg']['db_poormans_slaves_pass'] = '';
-
-
-	#
-	# For when you want to use tickets but can't tweak
-	# your my.cnf file or set up a dedicated ticketing
-	# server. flamework does not use tickets as part of
-	# core (yet) so this is really only necessary if your
-	# application needs db tickets.
-	#
-
 	$GLOBALS['cfg']['db_enable_poormans_ticketing'] = 1;
-
 
 	#
 	# This will assign $pagination automatically for smarty
@@ -155,17 +147,6 @@
 	$GLOBALS['cfg']['pagination_per_page'] = 10;
 	$GLOBALS['cfg']['pagination_spill'] = 0;
 	$GLOBALS['cfg']['pagination_style'] = 'pretty';
-
-	#
-	# Feature flags
-	#
-
-	$GLOBALS['cfg']['enable_feature_signup'] = 1;
-	$GLOBALS['cfg']['enable_feature_signin'] = 1;
-	$GLOBALS['cfg']['enable_feature_persistent_login'] = 1;
-	$GLOBALS['cfg']['enable_feature_account_delete'] = 1;
-	$GLOBALS['cfg']['enable_feature_password_retrieval'] = 1;
-
 
 	#
 	# enable this flag to show a full call chain (instead of just the
