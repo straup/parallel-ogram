@@ -16,7 +16,7 @@
 
 {* note: we are not doing fine grained filtering on backups (yet) *}
 
-{if $backups.0.disabled==0}
+{if $backups and $backups.0.disabled==0}
 
 <h2>You are currently backing up your Instagram photos</h2>
 
