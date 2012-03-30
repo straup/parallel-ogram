@@ -19,7 +19,7 @@
 {/if}
 		<div id="login" style="float: right;">
 {if $cfg.user.id}
-			you are signed in as <strong>{$cfg.user.username|escape}</strong>
+			you are signed in as <strong><a href="{$cfg.abs_root_url}account/">{$cfg.user.username|escape}</a></strong>
 {if $cfg.user.backup_photos}
 			|
 			<a href="{$cfg.user|@instagram_urls_for_user_photos}">photos</a>
