@@ -3,18 +3,49 @@ parallel-ogram
 
 It's like parallel-flickr but for Instagram.
 
-STOP NOW
+parallel-ogram is a simple web application to create an archive of your
+Instragram photos (and "likes") and to make that archive a living, breathing
+website of its own. It is not a replacement for Instagram but a shadow copy
+running in... parallel.
+
+You can filter you photos by well, Instagram filters and your likes by filter as
+well as photographer.
+
+You can archive photos for other Instagram users or just yourself. That's your
+business.
+
+parallel-ogram uses the Instagram API as a single-sign-on (SSO) provider so you
+simply log in via the Instagram website itself.
+
+Caveats
+--
+
+parallel-ogram is not hard to set up but there is still no "one-button" install
+yet.
+
+In the meantime, setting up parallel-ogram is not very complicated if you've
+ever set up a plain-vanilla website that uses PHP and MySQL.
+
+The Instagram API does not currently expose any consistent indication of whether
+a person's photos are public or not-public.
+
+In the absence of that information parallel-ogram treats everything as private,
+meaning you're the only person who can see your photos. The exception to this
+rule is that you can see other people's photos that you've liked and vice versa
+
+At some point in the near-future I would like to add the ability to mark photos
+in parallel-ogram as public or private, independent of any Instagram settings,
+but that's not possible right now.
+
+parallel-ogram does nothing about geo.
+
+Location information for every photo is recorded in the database but currently
+it is not used for anything.
+
+Installing parallel-ogram
 =========
 
-If you're reading this it means the application does **nothing** yet except let
-you log in using the Instagram API as a validation service.
-
-**It does not archive or display your Instagram photos yet.** ... Actually it does now, but it's probably still too soon to bother playing with.
-
-If you're comfortable working with parallel-flickr or Flamework, in general,
-feel free to poke around and send patches or whatever.
-
-I'm just making it all public now on principle. The rest will come with time.
+TBW.
 
 See also
 =========
