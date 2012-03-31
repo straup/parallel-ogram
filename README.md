@@ -21,25 +21,20 @@ Caveats
 --
 
 parallel-ogram is not hard to set up but there is still no "one-button" install
-yet.
-
-In the meantime, setting up parallel-ogram is not very complicated if you've
+yet. In the meantime, setting up parallel-ogram is not very complicated if you've
 ever set up a plain-vanilla website that uses PHP and MySQL.
 
 The Instagram API does not currently expose any consistent indication of whether
-a person's photos are public or not-public.
-
-In the absence of that information parallel-ogram treats everything as private,
-meaning you're the only person who can see your photos. The exception to this
-rule is that you can see other people's photos that you've liked and vice versa
-
-At some point in the near-future I would like to add the ability to mark photos
+a person's photos are public or not-public. In the absence of that information
+parallel-ogram treats everything as private, meaning you're the only person who can see your photos. The exception to this
+rule is that you can see other people's photos that you've liked and vice
+versa. At some point in the near-future I would like to add the ability to mark
+photos 
 in parallel-ogram as public or private, independent of any Instagram settings,
 but that's not possible right now.
 
-parallel-ogram does nothing about geo.
-
-Location information for every photo is recorded in the database but currently
+parallel-ogram does nothing about geo. Location information for every photo is
+recorded in the database but currently 
 it is not used for anything.
 
 Installing parallel-ogram
