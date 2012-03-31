@@ -1,5 +1,5 @@
 parallel-ogram
-=========
+--
 
 It's like parallel-flickr but for Instagram.
 
@@ -43,12 +43,12 @@ Location information for every photo is recorded in the database but currently
 it is not used for anything.
 
 Installing parallel-ogram
-=========
+--
 
 TBW.
 
 See also
-=========
+--
 
 * [flamework](https://github.com/straup/flamework)
 
@@ -57,6 +57,6 @@ See also
 * ["flinstagram"](https://gist.github.com/1926097)
 
 Shout outs
-=========
+--
 
 * [I blame Insam](https://github.com/tominsam/instabackup)
