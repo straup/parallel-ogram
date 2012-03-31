@@ -30,8 +30,51 @@
     <img src="example-1.jpg" width="640" height="423" />
 
     <div class="description">
-      It's like <a href="http://straup.github.com/parallel-flickr/">parallel-flickr</a> but for Instagram.
+      <p>It's like <a href="http://straup.github.com/parallel-flickr/">parallel-flickr</a> but for Instagram.</p>
+
+      <p>parallel-ogram is a simple web application to create an archive of your
+      Instragram photos (and <q>likes</q>) and to make that archive a living,
+      breathing website of its own. It is not a replacement for Instagram but a
+      <a href="http://www.aaronland.info/weblog/2012/02/14/incentivize/#pda2012">shadow copy</a> running in... parallel.</p>
+
+      <p>You can filter you photos by well, Instagram filters and your likes
+      by filters as well as the photographer.</p>
+
+      <p>You can archive photos for other Instagram users or just
+      yourself. That's your business.</p>
+
+      <p>parallel-ogram uses the Instagram API as a single-sign-on (SSO)
+      provider so you simply log in via the Instagram website itself.</p>
+ 
     </div>
+
+    <h2>Caveats</h2>
+
+    <h4>parallel-ogram is not hard to set up but there is still
+    no <q>one-button</q> install yet.</h4>
+
+    <p>In the meantime, setting up
+    parallel-ogram is not very complicated if you've ever set up a
+    plain-vanilla website that uses PHP and MySQL.</p>
+
+    <h4>The Instagram API does not currently expose any consistent indication of
+    whether a person's photos are public or not-public.</h4>
+
+    <p>In the absence of that
+    information parallel-ogram treats everything as private, meaning you're the
+    only person who can see your photos. The exception to this rule is that you can
+    see <em>other people's</em> photos that you've liked and vice versa</p>
+
+    <p>At some point in the near-future I would like to add the ability to mark
+    photos in parallel-ogram as public or private, independent of any Instagram
+    settings, but that's not possible right now.</p>
+
+    <h4>parallel-ogram does nothing about geo.</h4>
+
+    <p>Location information for every photo is recorded in the database but
+    currently it is not used for anything locally.</p>
+
+    <!-- <img src="example-2.jpg" width="640" height="424" /> -->
 
     <h2>Download</h2>
     <p>
