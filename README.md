@@ -40,7 +40,7 @@ it is not used for anything.
 Installing parallel-ogram
 --
 
-TBW.
+Installation instructions are outlined in a separate (INSTALL.md)[INSTALL.md] file.
 
 See also
 --

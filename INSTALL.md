@@ -12,7 +12,7 @@ You will need to make a copy of the [config.php.example](https://github.com/stra
 specifics for databases and third-party APIs.
 
 The basics
----
+===
 
 	# You will need valid Instagram OAuth credentials
 	# See also: http://instagram.com/developer/client/register/
@@ -60,7 +60,7 @@ The basics
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
 
 Limiting access (invite codes and "god" auth)
----
+===
 
 	# Invite codes – these are used to limit who can register
 	# to have their photos backed up. You'll need to do a
@@ -117,7 +117,7 @@ Limiting access (invite codes and "god" auth)
 	);
 
 Remaining details
----
+===
 
 	# This is only relevant if are running parallel-ogram on a machine where you
 	# can not make the www/templates_c folder writeable by the web server. If that's
