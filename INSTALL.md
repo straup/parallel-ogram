@@ -39,7 +39,7 @@ The basics
 	);
 
 	# You will need to set up secrets for the various parts of the site
-	# that need to be encrypted. Don't leave these empty. Really.
+	# that need to use encrypted cookies. Don't leave these empty. Really.
 
 	# You can create new secrets by typing `make secret`.
 	# See also: https://github.com/straup/privatesquare/blob/master/bin/generate_secret.php
