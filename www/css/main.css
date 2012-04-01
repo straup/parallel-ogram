@@ -21,7 +21,7 @@ body {
 #nav {
 	padding: 0.5em 1em;
 	font-size:small;
-	margin-bottom:100px;
+	margin-bottom:50px;
 	margin-top:10px;
 	margin-right:10px;
 	color:#999;
@@ -103,12 +103,38 @@ p.message {
     background:#fff;
 }
 
-.instagram_photo {
+#user_thumbs {
+    max-width:1024px;
+    margin-top:80px;
+    text-align:center;
+    margin-left:25px;
+}
+
+.instagram_thumb {
     margin-bottom: 20px;
     float:left;
     margin-right:20px;
 }
 
+.instagram_photo {
+    margin-bottom: 20px;
+    float:left;
+    margin-right:20px;
+    margin-left:10%;
+}
+
+.instagram_photo_caption {
+    font-size:11px;
+    color:#ccc;
+    margin-right:5px;
+    max-width:612px;
+    margin-top:20px;"
+}
+
 .instagram_photo img {
+    border: 5px solid #000;
+}
+
+.instagram_thumb img {
     border: 5px solid #000;
 }

@@ -1,9 +1,9 @@
 {capture assign="page_title"}{$owner.username} | photos{/capture}
 {include file="inc_head.txt"}
 
-<div style="max-width:1024px;">
+<div id="user_thumbs">
 {foreach from=$photos item="row"}
-<div class="instagram_photo">
+<div class="instagram_thumb">
 <a href="{$row|@instagram_urls_for_photo_page}"><img src="{$row|@instagram_urls_for_photo}" height="306" width="306" alt="{$row.caption|escape}" /></a>
 <br />
 <div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
