@@ -157,7 +157,6 @@
 		}
 
 		if ((! file_exists($info_path)) || ($more['force'])){
-			echo "write $info_path\n";
 			$rsp = storage_write_file($info_path, json_encode($row));
 		}
 

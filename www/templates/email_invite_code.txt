@@ -9,7 +9,15 @@ Your invite code is:
 
 You should only need to visit that page once. If you've not already logged in to {$cfg.site_name} then you'll be bounced throught the Instagram API authentication flow so that pua may be granted "read" permissions to view (and backup) your photos.
 
-Once you've done that you'll still need to confirm that you want the site to backup your photos.
+Once you've done that you'll still need to confirm that you want the site to backup your photos. After you've registered to have your photos archived they'll be included in the next round of backups (which may or may not happen on a regular schedule depending on how {$cfg.site_name} is set up).
+
+You can get your photos, and likes, by visiting:
+
+	{$cfg.abs_root_url}me/photos/
+
+	{$cfg.abs_root_url}me/likes/
+
+If you visit your photos page before the backup scripts are run and see that some of your photos are already there it's because one of the other users of {$cfg.site_name} liked your photo on Instagram and it was archived in the past.
 
 There may be some bugs left in the mix but otherwise it should be All Good (tm).
 
