@@ -33,6 +33,17 @@
 		error_403();
 	}
 
+	$is_own = ($owner['id'] == $GLOBALS['cfg']['user']['id']);
+	$GLOBALS['smarty']->assign("is_own", $is_own);
+
+	# TO DO: check for 'with-FILTER' style params and update
+	# query accordingly
+
+	if ($is_own){
+		$bookends = instagram_photos_get_bookends($photo);
+		$GLOBALS['smarty']->assign_by_ref("bookends", $bookends);
+	}
+
 	$GLOBALS['smarty']->assign_by_ref("owner", $owner);
 	$GLOBALS['smarty']->assign_by_ref("photo", $photo);
 

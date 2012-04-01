@@ -9,7 +9,58 @@
 {$photo.created|date_format} / {$photo.filter|strtolower|escape}
 </div>
 
+</div>
+
+{if $is_own}
+<div class="bookends">
+
+{if $bookends.after|@count}
+
+{foreach from=$bookends.after item="row"}
+<a href="{$row|@instagram_urls_for_photo_page}"><img src="{$row|@instagram_urls_for_photo}" height="248" width="248" alt="{$photo.caption|escape}" /></a>
+{/foreach}
+
+<br />
+{/if}
+
+{foreach from=$bookends.before item="row"}
+<a href="{$row|@instagram_urls_for_photo_page}"><img src="{$row|@instagram_urls_for_photo}" height="248" width="248" alt="{$photo.caption|escape}" /></a>
+{/foreach}
 
 </div>
+
+<script type="text/javascript">
+var prev = {if $bookends.before.0}'{$bookends.before.0|@instagram_urls_for_photo_page}'{else}null{/if};
+var next = {if
+$bookends.after.0}'{$bookends.after.0|@instagram_urls_for_photo_page}'{else}null{/if};
+
+{literal}
+
+$(document).ready(function(){
+
+	$(document).keydown(function(e){
+
+		if (e.keyCode == 13){
+			// 
+		}
+
+		// left arrow
+
+		else if ((e.keyCode == 37) && (prev)){
+			location.href = prev;
+		}
+
+		// right arrow
+
+		else if ((e.keyCode == 39) && (next)){
+			location.href = next;
+		}
+	});
+});
+
+{/literal}
+</script>
+
+{/if}
 
 {include file="inc_foot.txt"}

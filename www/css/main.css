@@ -120,7 +120,6 @@ p.message {
     margin-bottom: 20px;
     float:left;
     margin-right:20px;
-    margin-left:10%;
 }
 
 .instagram_photo_caption {
@@ -137,4 +136,8 @@ p.message {
 
 .instagram_thumb img {
     border: 5px solid #000;
+}
+
+.bookends img {
+    border: 2.5px solid #333;
 }

@@ -136,4 +136,35 @@
 	}
 
 	#################################################################
+
+	function instagram_photos_get_bookends($photo, $more=array()){
+
+		# NOTE: we are not doing any permissions checking (yet)
+ 
+		$extra = '';
+
+		$user = users_get_by_id($photo['user_id']);
+		$cluster_id = $user['cluster_id'];
+
+		$enc_user = AddSlashes($user['id']);
+		$enc_id = AddSlashes($photo['id']);
+
+		$sql = "SELECT * FROM InstagramPhotos WHERE user_id = '{$enc_user}' AND id < '{$enc_id}' {$extra} ORDER BY id DESC LIMIT 2";
+		$rsp = db_fetch_users($cluster_id, $sql);
+
+		$before = $rsp['rows'];
+
+		$sql = "SELECT * FROM InstagramPhotos WHERE user_id='{$enc_user}' AND id > '{$enc_id}' {$extra} ORDER BY id ASC LIMIT 2";
+		$rsp = db_fetch_users($cluster_id, $sql);
+
+		$after = $rsp['rows'];
+
+		return array(
+			'ok' => 1,
+			'before' => $before,
+			'after' => $after,
+		);
+	}
+
+	#################################################################
 ?>
