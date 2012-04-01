@@ -50,11 +50,11 @@ The basics
 
 	# Backups - by default anyone who knows where your copy of
 	# parallel-ogram is (on the Internet) could register to have
-	# their photos (and likes) backed up. If you don't want to
-	# let anyone else backup their photos then you should disable
-	# the 'enable_feature_backups_registration' flag. If you want
-	# to limit who can register take a look at the invite code
-	# flags below.
+	# their photos (and likes) backed up on your machine. If you
+	# don't want to let anyone else backup their photos then you
+	# should disable the 'enable_feature_backups_registration' flag.
+	# If you want to limit who can register take a look at the invite
+	# code flags below.
 
 	$GLOBALS['cfg']['enable_feature_backups'] = 1;
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
@@ -64,13 +64,12 @@ Limiting access (invite codes and "god" auth)
 
 	# Invite codes – these are used to limit who can register
 	# to have their photos backed up. You'll need to do a
-	# few things to enable this:
+	# few things to get this working:
 
 	# 1) enable the feature flags below for invite codes and
 	#    god auth (which is explained below)
 
 	# 2) generate a new secret for encrypting invite cookies
-	#    parallel-ogram/bin/generate_secret.php
 
 	# 3) set up poorman's 'god auth' – basically this is just
 	#    restricting access to a list of logged in user using
@@ -83,7 +82,8 @@ Limiting access (invite codes and "god" auth)
 	# $GLOBALS['cfg']['abs_root_url']/god/invites/generate/
 
 	# In addition, if a user tries to go to the backup page
-	# they've got stopped by an invite code wall which will
+	# ($GLOBALS['cfg']['abs_root_url']/account/instagram/backups)
+	# they'll got stopped by an invite code wall which will
 	# allow them to request an invite code but you'll still
 	# need to send it manually (by pressing a button on the
 	# god page).
