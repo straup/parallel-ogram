@@ -118,14 +118,19 @@
 			$insta_user = $rsp['instagram_user'];
 		}
 
+		# See above inre: functions for paths...
+
 		$user = users_get_by_id($insta_user['user_id']);
 
 		$id_path = storage_id_to_path($photo_id);
 		$root_path = "{$GLOBALS['cfg']['instagram_static_path']}{$id_path}/";
 
 		$full_path = "{$root_path}{$photo_id}_{$photo_secret}.jpg";
+		$info_path = "{$root_path}{$photo_id}_{$photo_secret}.json";
 
-		if ((file_exists($full_path) && $photo) && (! $more['force'])){
+		$all_files = ((file_exists($full_path)) && (file_exists($info_path))) ? 1 : 0; 
+
+		if (($all_files && $photo) && (! $more['force'])){
 
 			return okay(array(
 				'photo' => $photo,
@@ -134,16 +139,26 @@
 			));
 		}
 
-		$rsp = http_get($photo_url);
+		# TO DO: put me in a function
 
-		if (! $rsp['ok']){
-			return $rsp;
+		if ((! file_exists($full_path)) || ($more['force'])){
+
+			$rsp = http_get($photo_url);
+
+			if (! $rsp['ok']){
+				return $rsp;
+			}
+
+			$rsp = storage_write_file($full_path, $rsp['body']);
+
+			if (! $rsp['ok']){
+				return $rsp;
+			}
 		}
 
-		$rsp = storage_write_file($full_path, $rsp['body']);
-
-		if (! $rsp['ok']){
-			return $rsp;
+		if ((! file_exists($info_path)) || ($more['force'])){
+			echo "write $info_path\n";
+			$rsp = storage_write_file($info_path, json_encode($row));
 		}
 
 		$data = array(

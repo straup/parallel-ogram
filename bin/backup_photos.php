@@ -25,7 +25,9 @@
 			'per_page' => 1
 		);
 
-		$import_more = array();
+		$import_more = array(
+			'force' => 0
+		);
 
 		if ($last_update = json_decode($backup['details'], 'as hash')){
 
