@@ -1,9 +1,7 @@
 Installing parallel-ogram
 --
 
-**THIS DOCUMENT IS NOT COMPLETE**
-
-privatesquare is built on top of [Flamework](https://github.com/exflickr/flamework) which means it's nothing more
+parallel-ogram is built on top of [Flamework](https://github.com/exflickr/flamework) which means it's nothing more
 than a vanilla Apache + PHP + MySQL application. You can run it as a dedicated
 virtual host or as a subdirectory of an existing host.
 
