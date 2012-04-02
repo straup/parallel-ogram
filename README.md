@@ -40,7 +40,7 @@ it is not used for anything.
 Installing parallel-ogram
 --
 
-Installation instructions are outlined in a separate [INSTALL.md](INSTALL.md) file.
+Installation instructions are outlined in a separate [INSTALL.md](https://github.com/straup/parallel-ogram/blob/master/INSTALL.md) file.
 
 Actually backing up your photos
 --
