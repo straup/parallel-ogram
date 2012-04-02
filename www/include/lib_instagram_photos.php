@@ -141,13 +141,28 @@
 
 		# NOTE: we are not doing any permissions checking (yet)
  
-		$extra = '';
+		$extra = array();
+
+		if (isset($more['filter'])){
+			$enc_filter = AddSlashes($more['filter']);
+			$extra[] = "filter='{$enc_filter}'";
+		}
+
+		if (count($extra)){
+			array_unshift($extra, "");
+		}
+
+		$extra = implode(" AND ", $extra);
+
+		#
 
 		$user = users_get_by_id($photo['user_id']);
 		$cluster_id = $user['cluster_id'];
 
 		$enc_user = AddSlashes($user['id']);
 		$enc_id = AddSlashes($photo['id']);
+
+		# TO DO: indexes (for filters)
 
 		$sql = "SELECT * FROM InstagramPhotos WHERE user_id = '{$enc_user}' AND id < '{$enc_id}' {$extra} ORDER BY id DESC LIMIT 2";
 		$rsp = db_fetch_users($cluster_id, $sql);

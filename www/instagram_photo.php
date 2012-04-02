@@ -40,7 +40,14 @@
 	# query accordingly
 
 	if ($is_own){
-		$bookends = instagram_photos_get_bookends($photo);
+
+		$more = array();
+
+		if ($filter = get_str("filter")){
+			$more['filter'] = $filter;
+		}
+
+		$bookends = instagram_photos_get_bookends($photo, $more);
 		$GLOBALS['smarty']->assign_by_ref("bookends", $bookends);
 	}
 

@@ -1,12 +1,13 @@
 {capture assign="page_title"}{$owner.username} | {if $photo.caption}{$photo.caption}{else}untitled photo #{$photo.id}{/if}{/capture}
+{capture assign="filter"}{$smarty.get.filter|strtolower}{/capture}
 {include file="inc_head.txt"}
 
 <div class="instagram_photo">
 <img src="{$photo|@instagram_urls_for_photo}" height="500" width="500" alt="{$photo.caption|escape}" />
 
 <div class="instagram_photo_caption">
-{if $photo.caption}{$photo.caption|escape}{else}untitled photo #{$photo.id|escape}{/if}<br />
-{$photo.created|date_format} / {$photo.filter|strtolower|escape}
+<strong>{if $photo.caption}{$photo.caption|escape}{else}untitled photo #{$photo.id|escape}{/if}</strong><br />
+{$photo.created|date_format} / <a href="{$owner|@instagram_urls_for_user_photos}{$photo.filter|strtolower|escape}/">{$photo.filter|strtolower|escape}</a>
 </div>
 
 </div>
@@ -30,9 +31,8 @@
 </div>
 
 <script type="text/javascript">
-var prev = {if $bookends.before.0}'{$bookends.before.0|@instagram_urls_for_photo_page}'{else}null{/if};
-var next = {if
-$bookends.after.0}'{$bookends.after.0|@instagram_urls_for_photo_page}'{else}null{/if};
+var prev = {if $bookends.before.0}'{$bookends.before.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}'{else}null{/if};
+var next = {if $bookends.after.0}'{$bookends.after.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}'{else}null{/if};
 
 {literal}
 
