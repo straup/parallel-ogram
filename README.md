@@ -42,6 +42,21 @@ Installing parallel-ogram
 
 Installation instructions are outlined in a separate [INSTALL.md](INSTALL.md) file.
 
+Actually backing up your photos
+--
+
+Photos and likes are backed up using the
+[backup_photos.php](https://github.com/straup/parallel-ogram/blob/master/bin/backup_photos.php)
+and
+[backup_likes.php](https://github.com/straup/parallel-ogram/blob/master/bin/backup_likes.php)
+scripts, respectively. Those scripts are located in the `parallel-ogram/bin`
+directory. They need to be run by hand, like this:
+
+	$> php -q ./bin/backup_photos.php
+	
+If you want to automate the process you'll need to stick them in a local cron
+tab or some other similar scheduling tool.
+
 See also
 --
 
