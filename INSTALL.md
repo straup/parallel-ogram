@@ -24,7 +24,7 @@ The basics
 	$GLOBALS['cfg']['instagram_oauth_callback'] = 'auth/';
 
 	# You will need to setup a MySQL database and plug in the specifics
-	# here: https://github.com/straup/privatesquare/blob/master/schema
+	# here: https://github.com/straup/parallel-ogram/tree/master/schema
 
 	# See also: https://github.com/straup/flamework-tools/blob/master/bin/setup-db.sh
 
@@ -56,6 +56,11 @@ The basics
 
 	$GLOBALS['cfg']['enable_feature_backups'] = 1;
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
+	
+	# This is where your Instagram photos will be stored
+	# It should have a trailing slash e.g. /usr/local/parallelogram-static/
+	
+	$GLOBALS['cfg']['instagram_static_path'] = ''
 
 Limiting access (invite codes and "god" auth)
 ===
