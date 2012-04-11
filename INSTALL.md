@@ -24,7 +24,7 @@ The basics
 	$GLOBALS['cfg']['instagram_oauth_callback'] = 'auth/';
 
 	# You will need to setup a MySQL database and plug in the specifics
-	# here: https://github.com/straup/privatesquare/blob/master/schema
+	# here: https://github.com/straup/parallel-ogram/tree/master/schema
 
 	# See also: https://github.com/straup/flamework-tools/blob/master/bin/setup-db.sh
 
