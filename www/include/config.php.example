@@ -164,6 +164,9 @@
 	$GLOBALS['cfg']['pagination_spill'] = 0;
 	$GLOBALS['cfg']['pagination_style'] = 'pretty';
 
+	$GLOBALS['cfg']['pagination_keyboard_shortcuts'] = 1;
+	$GLOBALS['cfg']['pagination_touch_shortcuts'] = 1;
+
 	#
 	# enable this flag to show a full call chain (instead of just the
 	# immediate caller) in database query log messages and embedded in

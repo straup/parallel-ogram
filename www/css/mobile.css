@@ -3,6 +3,10 @@
     margin-bottom:0px !important;
 }
 
+.bookends {
+    display: none !important;
+}
+
 #user_thumbs {
     margin-left: auto;
     margin-right: auto;
