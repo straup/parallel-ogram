@@ -1,0 +1,21 @@
+#content {
+    margin-left:0px !important;
+    margin-bottom:0px !important;
+}
+
+#user_thumbs {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border: solid thin;
+}
+
+.instagram_thumb {
+    display: block;
+    margin:none;
+    margin-bottom: 20px;
+}
+
+.instagram_photo {
+    float: none;
+}
