@@ -21,11 +21,6 @@
 <div id="main">
 
 	<div id="nav">
-{if 0}
-		<div id="login" style="float: left;">
-			<a href="{$cfg.abs_root_url}">parallel-ogram</a>
-		</div>
-{/if}
 		<div id="login" style="float: right;">
 {if $cfg.user.id}
 			<span class="youare_preamble">you are signed in as </span><strong><a href="{$cfg.abs_root_url}account/">{$cfg.user.username|escape}</a></strong>
@@ -44,6 +39,7 @@
 {/if}
 		</div>
 		&nbsp;
+		<br clear="both" />
 	</div>
 
 	<div id="content">
