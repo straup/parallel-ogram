@@ -1,12 +1,12 @@
 {capture assign="page_title"}{$owner.username} | likes{if $photo_owner} | by {$photo_owner.username}{elseif $filter} | by filter | {$filter}{else}{/if}{/capture}
 {include file="inc_head.txt"}
 
-<div style="max-width:1024px;">
+<div id="user_likes">
 {foreach from=$photos item="row"}
-<div class="instagram_photo">
+<div class="instagram_thumb">
 <a href="{$row|@instagram_urls_for_photo_page}"><img src="{$row|@instagram_urls_for_photo}" height="306" width="306" alt="{$row.caption|escape}" /></a>
 <br />
-<div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
+<div class="instagram_thumb_caption">
 {$row.created|date_format} / <a
 href="{$owner|@instagram_urls_for_user_likes}{$row.filter|strtolower|escape}/">{$row.filter|strtolower|escape}</a> / <a href="{$owner|@instagram_urls_for_user_likes}{$row.owner.instagram_id|escape}/">{$row.owner.username|escape}</a>
 </div>
