@@ -1,5 +1,6 @@
 #nav {
-    margin-bottom:10px !important;
+    margin-bottom:15px !important;
+    font-size: 14pt !important;
 }
 
 #content {
@@ -13,18 +14,19 @@
 
 #user_thumbs {
     margin:0px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width:280px !important;
 }
 
 .instagram_thumb {
     display: block !important;
     margin:0 !important;
     margin-bottom:15px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
 }
 
 .instagram_thumb_caption {
-    font-size: 16pt !important;
+    font-size: 14pt !important;
     text-align:center;
 }
 
