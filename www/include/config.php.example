@@ -13,6 +13,17 @@
 
 	# Things you'll need to tweak
 
+	# You will need valid Instagram OAuth credentials
+	# See also: http://instagram.com/developer/client/register/
+
+	$GLOBALS['cfg']['instagram_oauth_key'] = '';
+	$GLOBALS['cfg']['instagram_oauth_secret'] = '';
+	
+	# Don't change this (but if you do be sure to update the main
+	# .htaccess file accordingly).
+	
+	$GLOBALS['cfg']['instagram_oauth_callback'] = 'auth/';
+
 	# Setting up the database
 	# See also: https://github.com/straup/flamework-tools/blob/master/bin/setup-db.sh
 
@@ -41,6 +52,11 @@
 
 	$GLOBALS['cfg']['enable_feature_backups'] = 1;
 	$GLOBALS['cfg']['enable_feature_backups_registration'] = 1;
+
+	# This is where your Instagram photos will be stored
+	# It should have a trailing slash e.g. /usr/local/parallelogram-static/
+	
+	$GLOBALS['cfg']['instagram_static_path'] = ''
 
 	# Invite codes – these are used to limit who can register
 	# to have their photos backed up. You'll need to do a
