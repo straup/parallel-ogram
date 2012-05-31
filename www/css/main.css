@@ -116,6 +116,14 @@ p.message {
     margin-right:20px;
 }
 
+.instagram_thumb_caption {
+    font-size:11px;
+    text-align:right;
+    color:#ccc;
+    margin-right:5px;
+    max-width:306px;
+}
+
 .instagram_photo {
     margin-bottom: 20px;
     float:left;

@@ -13,6 +13,8 @@
 	
 	{* middle *}
 
+	<span id="pag_middle">
+
 	{if $pagination.page_count > 10}
 	    {assign var=range_mid value=7}
 	    {assign var=rfloor value=$range_mid/2|@floor}
@@ -57,6 +59,8 @@
     	    {/if}
     	    
     	{/section}
+
+	</span>
 	
 	{else}
 	

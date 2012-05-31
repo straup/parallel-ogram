@@ -7,7 +7,7 @@
 <div class="instagram_thumb">
 <a href="{$row|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}{/if}"><img src="{$row|@instagram_urls_for_photo}" height="306" width="306" alt="{$row.caption|escape}" /></a>
 <br />
-<div style="font-size:11px;text-align:right;color:#ccc;margin-right:5px;max-width:306px;">
+<div class="instagram_thumb_caption">
 {$row.created|date_format} / <a href="{$owner|@instagram_urls_for_user_photos}{$row.filter|strtolower|escape}">{$row.filter|strtolower|escape}</a>
 </div>
 </div>

@@ -1,3 +1,7 @@
+#nav {
+    margin-bottom:10px !important;
+}
+
 #content {
     margin-left:0px !important;
     margin-bottom:0px !important;
@@ -8,18 +12,40 @@
 }
 
 #user_thumbs {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    border: solid thin;
+    margin:0px !important;
 }
 
 .instagram_thumb {
-    display: block;
-    margin:none;
-    margin-bottom: 20px;
+    display: block !important;
+    margin:0 !important;
+    margin-bottom:15px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.instagram_thumb_caption {
+    font-size: 16pt !important;
+    text-align:center;
+}
+
+.instagram_thumb img {
+    max-width: 275px !important;
+    max-height: 275px !important;
 }
 
 .instagram_photo {
     float: none;
+}
+
+.instagram_photo img {
+    max-width: 275px !important;
+    max-height: 275px !important;
+}
+
+#pag_middle {
+    display:none;
+}
+
+#footer {
+    margin-bottom: 50px;
 }
