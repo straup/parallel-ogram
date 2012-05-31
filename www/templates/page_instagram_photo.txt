@@ -7,7 +7,7 @@
 
 <div class="instagram_photo_caption">
 <strong>{if $photo.caption}{$photo.caption|escape}{else}untitled photo #{$photo.id|escape}{/if}</strong><br />
-{$photo.created|date_format} / <a href="{$owner|@instagram_urls_for_user_photos}{$photo.filter|strtolower|escape}/">{$photo.filter|strtolower|escape}</a>
+{$photo.created|date_format} / {if $is_own}<a href="{$owner|@instagram_urls_for_user_photos}{$photo.filter|strtolower|escape}/">{$photo.filter|strtolower|escape}{else}{$photo.filter|strtolower|escape}{/if}</a>
 </div>
 
 </div>
