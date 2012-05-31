@@ -30,10 +30,10 @@
 
 </div>
 
-
 {capture assign="paginate_next"}{if $bookends.before.0}{$bookends.before.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}{else}{/if}{/capture}
 {capture assign="paginate_previous"}{if $bookends.after.0}{$bookends.after.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}{else}{/if}{/capture}
 
+{include file="inc_pagination_bookends.txt"}
 {include file="inc_pagination_shortcuts.txt"}
 
 {/if}

@@ -156,3 +156,7 @@ p.message {
 .bookends img {
     border: 2.5px solid #333;
 }
+
+#pag_bookends {
+	display:none;
+}
