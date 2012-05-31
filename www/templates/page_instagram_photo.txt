@@ -30,36 +30,11 @@
 
 </div>
 
-<script type="text/javascript">
-var prev = {if $bookends.before.0}'{$bookends.before.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}'{else}null{/if};
-var next = {if $bookends.after.0}'{$bookends.after.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}'{else}null{/if};
 
-{literal}
+{capture assign="paginate_previous"}{if $bookends.before.0}{$bookends.before.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}{else}{/if}{/capture}
+{capture assign="paginate_next"}{if $bookends.after.0}{$bookends.after.0|@instagram_urls_for_photo_page}{if $filter}with-filter-{$filter|escape}/{/if}{else}{/if}{/capture}
 
-$(document).ready(function(){
-
-	$(document).keydown(function(e){
-
-		if (e.keyCode == 13){
-			// 
-		}
-
-		// left arrow
-
-		else if ((e.keyCode == 37) && (prev)){
-			location.href = prev;
-		}
-
-		// right arrow
-
-		else if ((e.keyCode == 39) && (next)){
-			location.href = next;
-		}
-	});
-});
-
-{/literal}
-</script>
+{include file="inc_pagination_shortcuts.txt"}
 
 {/if}
 
