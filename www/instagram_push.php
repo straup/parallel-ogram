@@ -58,14 +58,18 @@
 
 	# okay, now assume something is posting to us
 
+	$headers = getallheaders();
+	$sig = $headers['X-Hub-Signature'];
+
+	if (! $sig){
+		error_404();
+	}
+
 	$raw = file_get_contents("php://input");
 
 	if (! $raw){
-		error_500();
+		error_404();
 	}
-
-	$headers = getallheaders();
-	$sig = $headers['X-Hub-Signature'];
 
 	if (! instagram_push_validate_payload($raw, $sig)){
 		error_403();
@@ -73,9 +77,9 @@
 
 	$data = json_decode($raw, "as hash");
 
-	$fh = fopen("/tmp/instapush", "w");
-	fwrite($fh, $raw);
-	fclose($fh);
+	# $fh = fopen("/tmp/instapush", "w");
+	# fwrite($fh, $raw);
+	# fclose($fh);
 
 	if (! $data){
 		error_500();
@@ -87,13 +91,14 @@
 
 		$topic = $row['object'];
 
-		# ensure 'user' ...
+		if ($topic == 'user'){
 
-		$ts = $row['time'];
-		$user_id = $row['object_id'];
+			$ts = $row['time'];
+			$user_id = $row['object_id'];
 
-		$ts = (isset($users[$user_id])) ? min($ts, $users[$user_id]) : $ts;
-		$users[$user_id] = $ts;
+			$ts = (isset($users[$user_id])) ? min($ts, $users[$user_id]) : $ts;
+			$users[$user_id] = $ts;
+		}
 	}
 
 	foreach ($users as $user_id => $ts){
@@ -101,12 +106,22 @@
 		$insta_user = instagram_users_get_by_id($user_id);
 		$user = users_get_by_id($insta_user['user_id']);
 
+		# There appears to be a need to use the past since
+		# just passing $ts sometimes yields no results...
+
 		$more = array(
-			'min_timestamp' => $ts,
+			'min_timestamp' => $ts - 600,
 		);
 
-		# uhhh... perms?
-		# $rsp = instagram_photos_import_for_user($user, $more);
+		# See this: it assumes you've made the directory defined
+		# in the  $GLOBALS['cfg']['instagram_static_path'] config
+		# variable writeable by the web server. All the usual
+		# caveats apply.
+
+		$rsp = instagram_photos_import_for_user($user, $more);
+		$rsp['args'] = $more;
+
+		$users[$user_id] = $rsp;
 	}
 
 	$update = array(
