@@ -14,6 +14,7 @@
 	$spec = array(
 		"id" => array("flag" => "i", "required" => 0, "help" => "the ID of the subscription"),
 		"secret" => array("flag" => "s", "required" => 0, "help" => "the secret url of the subscription"),
+		"url" => array("flag" => "u", "required" => 1, "help" => "the *root* URL of your copy of parallel-ogram (the need to specify this here is not a feature...)")
 	);
 
 	$opts = cli_getopts($spec);
@@ -32,6 +33,12 @@
 		echo "Missing or invalid subscription ID\n";
 		exit();
 	}
+
+	# This sucks to have to do but I am uncertain what the
+	# better alternative is right now... (20120601/straup)
+
+	$root = rtrim($opts['url'], '/') . "/";	
+	$GLOBALS['cfg']['abs_root_url'] = $root;
 
 	# TO DO: prompt
 
