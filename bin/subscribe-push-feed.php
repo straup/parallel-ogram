@@ -50,7 +50,19 @@
 	$rsp = instagram_push_subscribe($sub);
 	dumper($rsp);
 
-	if (! $rsp['ok']){
+	if ($rsp['ok']){
+
+		$sub_id = $rsp['details']['data']['id'];
+
+		$update = array(
+			'instagram_subscription_id' => $sub_id
+		);
+
+		dumper($update);
+		instagram_push_subscriptions_update($sub, $update);
+	}
+
+	else {
 		instagram_push_subscriptions_delete($sub);
 	}
 

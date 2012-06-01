@@ -101,3 +101,21 @@ CREATE TABLE `InviteCodes` (
   KEY `by_email` (`email`),
   KEY `by_created` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `InstagramPushSubscriptions`;
+
+CREATE TABLE `InstagramPushSubscriptions` (
+  `id` INT(11) UNSIGNED NOT NULL,
+  `instagram_subscription_id` INT(11) UNSIGNED NOT NULL,
+  `secret_url` CHAR(64) NOT NULL,
+  `topic_id` TINYINT(3) UNSIGNED NOT NULL,
+  `topic_args` VARCHAR(255) NOT NULL,
+  `verify_token` CHAR(32) NOT NULL,
+  `created` int(10) unsigned NOT NULL,
+  `verified` int(10) unsigned NOT NULL,
+  `last_update` int(10) unsigned NOT NULL,
+  `last_update_details` TEXT,	
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `by_topic` (`topic_id`, `topic_args`),
+  UNIQUE KEY `by_url` (`secret_url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

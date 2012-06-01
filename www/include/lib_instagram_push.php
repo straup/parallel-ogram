@@ -57,27 +57,23 @@
 		$url = $GLOBALS['instagram_push_endpoint'];
 
 		$rsp = http_post($url, $params);
-
-		if ((! $rsp['ok']) && (! $rsp['body'])){
-			return $rsp;
-		}
-
-		$data = json_decode($rsp['body'], 'as hash');
-
-		if (! $data){
-			return not_okay("failed to parse json");
-		}
-
-		return array(
-			'ok' => $rsp['ok'],
-			'details' => $data,
-		);
+		return _instagram_push_parse_response($rsp);
 	}
 
 	#################################################################
 
 	function instagram_push_unsubscribe(&$subscription){
-		# please write me
+
+		$params = array(
+			'id' => $subscription['instagram_subscription_id'],
+			'client_id' => $GLOBALS['cfg']['instagram_oauth_key'],
+			'client_secret' => $GLOBALS['cfg']['instagram_oauth_secret'],		
+		);
+
+		$url = $GLOBALS['instagram_push_endpoint'] . "?" . http_build_query($params);
+
+		$rsp = http_delete($url, null);
+		return _instagram_push_parse_response($rsp);
 	}
 
 	#################################################################
@@ -98,4 +94,23 @@
 
 	#################################################################	
 
+	function _instagram_push_parse_response($rsp){
+
+		if ((! $rsp['ok']) && (! $rsp['body'])){
+			return $rsp;
+		}
+
+		$data = json_decode($rsp['body'], 'as hash');
+
+		if (! $data){
+			return not_okay("failed to parse json");
+		}
+
+		return array(
+			'ok' => $rsp['ok'],
+			'details' => $data,
+		);
+	}
+
+	#################################################################
 ?>
