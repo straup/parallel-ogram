@@ -82,4 +82,20 @@
 
 	#################################################################
 
+	# To verify that the payload you received comes from us, you can verify the
+	# "X-Hub-Signature" header. This will be a SHA-1-signed hexadecimal
+	# digest, using your client secret as a key and the payload as the
+	# message.
+	
+	function instagram_push_validate_payload($data, $sig){
+
+		# note: we're just not that concerned about doing
+		# an == test, it's okay...
+
+		$test = hash_hmac("sha1", $data, $GLOBALS['cfg']['instagram_oauth_secret']);
+		return ($test == $sig) ? 1 : 0;
+	}
+
+	#################################################################	
+
 ?>
