@@ -1,6 +1,6 @@
 <?php
 
-	$GLOBALS['cfg']['instagram_push_endpoint'] = 'https://api.instagram.com/v1/subscriptions/';
+	$GLOBALS['instagram_push_endpoint'] = 'https://api.instagram.com/v1/subscriptions/';
 
 	#################################################################
 
@@ -32,10 +32,11 @@
 
 	function instagram_push_subscribe(&$subscription){
 
-		$type_map = instagram_push_type_map();
-		$object = $type_map[$subscription['type_id']];
+		$topic_map = instagram_push_topic_map();
+		$object = $topic_map[$subscription['topic_id']];
 
-		$callback = "{$GLOBALS['cfg']['asb_root_url']}push/{$subscription['secret_url']}/";
+		# this does not work when run from the command line...
+		$callback = "{$GLOBALS['cfg']['abs_root_url']}push/{$subscription['secret_url']}/";
 
 		$params = array(
 			'client_id' => $GLOBALS['cfg']['instagram_oauth_key'],
@@ -55,12 +56,29 @@
 
 		$url = $GLOBALS['instagram_push_endpoint'];
 
-		$ret = http_post($url, $params);
-		return $ret;
+		$rsp = http_post($url, $params);
+
+		if ((! $rsp['ok']) && (! $rsp['body'])){
+			return $rsp;
+		}
+
+		$data = json_decode($rsp['body'], 'as hash');
+
+		if (! $data){
+			return not_okay("failed to parse json");
+		}
+
+		return array(
+			'ok' => $rsp['ok'],
+			'details' => $data,
+		);
 	}
 
 	#################################################################
 
+	function instagram_push_unsubscribe(&$subscription){
+		# please write me
+	}
 
 	#################################################################
 

@@ -101,6 +101,8 @@
 
 	);
 
+	$GLOBALS['cfg']['enable_feature_instagram_push'] = 1;
+
 	# Things you may want to tweak (but otherwise don't need to worry about)
 
 	$GLOBALS['cfg']['enable_feature_signup'] = 1;

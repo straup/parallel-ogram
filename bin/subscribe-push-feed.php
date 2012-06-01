@@ -18,10 +18,11 @@
 	$opts = cli_getopts($spec);
 	$topic = $opts['topic'];
 
+
 	$map = instagram_push_topic_map("string keys");
 
 	if (! isset($map[$topic])){
-		echo "Invalid topic";
+		echo "Invalid topic\n";
 		exit();
 	}
 
@@ -30,6 +31,21 @@
 	);
 
 	$rsp = instagram_push_subscriptions_create($sub);
+
+	if (! $rsp['ok']){
+		echo "{$rsp['error']}\n";
+		exit();
+	}
+
+	$sub = $rsp['subscription'];
 	dumper($rsp);
+
+	$rsp = instagram_push_subscribe($sub);
+	dumper($rsp);
+
+	if (! $rsp['ok']){
+#		instagram_push_subscriptions_delete($sub);
+	}
+
 	exit();
 ?>

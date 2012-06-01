@@ -5,7 +5,7 @@
 	include("include/init.php");
 	loadlib("instagram_push_subscriptions");
 
-	if (! $GLOBALS['cfg']['enable_feature_push']){
+	if (! $GLOBALS['cfg']['enable_feature_instagram_push']){
 		error_disabled();
 	}
 
@@ -16,10 +16,13 @@
 		error_404();
 	}
 
-	if (get_str("hub.mode") == "subscription"){
+	# IMPORTANT: Note the '_' characters in the place of the '.'
+	# separator described in the Instagram docs. This is a PHP-ism...
 
-		$challenge = get_str("hub.challenge");
-		$verify = get_str("hub.verify_token");
+	if (get_str("hub_mode") == "subscribe"){
+
+		$challenge = get_str("hub_challenge");
+		$verify = get_str("hub_verify_token");
 
 		if (! $challenge){
 			error_404();
@@ -40,11 +43,22 @@
 		# error checking/handling?
 		instagram_push_subscriptions_update($subscription, $update);
 
-		echo $challege;
+		echo $challenge;
 		exit();
 	}
 
 	# otherwise something is posting to us
+
+	$raw = file_get_contents("php://input");
+	$data = json_decode($raw, "as hash");
+
+	$fh = fopen("/tmp/instapush", "w");
+	fwrite($fh, $raw);
+	fclose($fh);
+
+	if (! $data){
+		error_500();
+	}
 
 	$update = array(
 		'last_update' => time(),
@@ -53,4 +67,5 @@
 	# error checking/handling?
 	instagram_push_subscriptions_update($subscription, $update);
 
+	exit();
 ?>

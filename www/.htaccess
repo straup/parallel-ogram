@@ -92,3 +92,5 @@ RewriteRule ^user/([0-9]+)/photos/([a-zA-Z-\ ]+)(/page([0-9]+))?/?$    instagram
 RewriteRule ^user/([0-9]+)/likes/([a-zA-Z-\ ]+)(/page([0-9]+))?/?$    instagram_likes_user.php?instagram_id=$1&filter=$2&page=$4&%{QUERY_STRING} [L]
 RewriteRule ^user/([0-9]+)/likes/([0-9]+)(/page([0-9]+))?/?$    instagram_likes_user.php?instagram_id=$1&photo_owner_id=$2&page=$4&%{QUERY_STRING} [L]
 RewriteRule ^user/([0-9]+)/likes(/page([0-9]+))?/?$    instagram_likes_user.php?instagram_id=$1&page=$3&%{QUERY_STRING} [L]
+
+RewriteRule ^push/([a-zA-Z0-9]+)/?$		instagram_push.php?secret=$1&%{QUERY_STRING}	[L]
