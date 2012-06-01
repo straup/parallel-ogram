@@ -1,16 +1,20 @@
 <?php
 
-	include("include/init.php");
-
 	# http://instagram.com/developer/realtime/
+
+	include("include/init.php");
+	loadlib("instagram_push_subscriptions");
 
 	if (! $GLOBALS['cfg']['enable_feature_push']){
 		error_disabled();
 	}
 
-	$sub = get_str("subscription");
+	$secret = get_str("secret");
+	$subscription = instagram_push_subscriptions_get_by_secret_url($secret);
 
-	# ensure subscription (url) here
+	if (! $subscription){
+		error_404();
+	}
 
 	if (get_str("hub.mode") == "subscription"){
 
@@ -25,12 +29,28 @@
 			error_403();
 		}
 
-		# ensure matching verify string for subscription
+		if ($verify != $subscription['verify_string']){
+			error_403();
+		}
+
+		$update = array(
+			'verified' => time(),
+		);
+
+		# error checking/handling?
+		instagram_push_subscriptions_update($subscription, $update);
 
 		echo $challege;
 		exit();
 	}
 
 	# otherwise something is posting to us
+
+	$update = array(
+		'last_update' => time(),
+	);
+
+	# error checking/handling?
+	instagram_push_subscriptions_update($subscription, $update);
 
 ?>

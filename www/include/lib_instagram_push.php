@@ -38,6 +38,13 @@
 			'callback_url' => $callback,
 		);
 
+		# note that $params takes precedence over $args
+
+		if ($args = $subscription['topic_args']){
+			$args = json_decode($args, 'as hash');
+			$params = array_merge($args, $params);
+		}
+
 		$url = $GLOBALS['instagram_push_endpoint'];
 
 		$ret = http_post($url, $params);
@@ -45,4 +52,8 @@
 	}
 
 	#################################################################
+
+
+	#################################################################
+
 ?>
