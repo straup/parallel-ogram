@@ -9,5 +9,6 @@ CREATE TABLE `InstagramPushSubscriptions` (
   `last_update` int(10) unsigned NOT NULL,
   `last_update_details` TEXT,	
   PRIMARY KEY (`id`),
+  UNIQUE KEY `by_topic` (`topic_id`, `topic_args`),
   UNIQUE KEY `by_url` (`secret_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

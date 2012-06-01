@@ -32,6 +32,11 @@
 		$sub['verify_string'] = instagram_push_subscriptions_genereate_verify_string();
 		$sub['secret_url'] = instagram_push_subscriptions_genereate_secret_url();
 
+		if (is_array($sub['topic_args'])){
+			ksort($sub['topic_args']);
+			$sub['topic_args'] = json_encode($sub['topic_args']);
+		}
+
 		$insert = array();
 
 		foreach ($sub as $k => $v){
@@ -61,6 +66,16 @@
 		$where = "id='{$enc_id}'";
 
 		return db_update('InstagramPushSubscriptions', $insert, $where);
+	}
+
+	#################################################################
+
+	function instagram_push_subscriptions_delete(&$subscription){
+
+		$enc_id = AddSlashes($subscription['id']);
+		$sql = "DELETE FROM InstagramPushSubscriptions WHERE id='{$enc_id}'";
+
+		return db_write($sql);
 	}
 
 	#################################################################

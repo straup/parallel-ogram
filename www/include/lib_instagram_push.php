@@ -27,7 +27,7 @@
 		$type_map = instagram_push_type_map();
 		$object = $type_map[$subscription['type_id']];
 
-		$callback = "$GLOBALS['cfg']['asb_root_url']}push/{$subscription['secret_url']}/";
+		$callback = "{$GLOBALS['cfg']['asb_root_url']}push/{$subscription['secret_url']}/";
 
 		$params = array(
 			'client_id' => $GLOBALS['cfg']['instagram_oauth_key'],
