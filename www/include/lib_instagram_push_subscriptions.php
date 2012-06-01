@@ -26,11 +26,11 @@
 
 	function instagram_push_subscriptions_create($sub){
 
-		$sub['id'] = db_tickets_create();
+		$sub['id'] = dbtickets_create();
 		$sub['created'] = time();
 
-		$sub['verify_string'] = instagram_push_subscriptions_genereate_verify_string();
-		$sub['secret_url'] = instagram_push_subscriptions_genereate_secret_url();
+		$sub['verify_string'] = instagram_push_subscriptions_generate_verify_string();
+		$sub['secret_url'] = instagram_push_subscriptions_generate_secret_url();
 
 		if (is_array($sub['topic_args'])){
 			ksort($sub['topic_args']);

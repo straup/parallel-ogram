@@ -8,9 +8,9 @@
 
 		$map = array(
 			0 => 'user',
-			1 => 'tag',
-			2 => 'geography',
-			3 => 'location',
+			# 1 => 'tag',
+			# 2 => 'geography',
+			# 3 => 'location',
 		);
 
 		if ($string_keys){
@@ -18,6 +18,14 @@
 		}
 
 		return $map;
+	}
+
+	#################################################################
+
+	function instagram_push_is_valid_topic($topic){
+
+		$map = instagram_push_topic_map("string keys");
+		return (isset($map[$topic])) ? 1 : 0;
 	}
 
 	#################################################################
