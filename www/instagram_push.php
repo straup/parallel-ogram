@@ -29,7 +29,7 @@
 			error_403();
 		}
 
-		if ($verify != $subscription['verify_string']){
+		if ($verify != $subscription['verify_token']){
 			error_403();
 		}
 

@@ -29,7 +29,7 @@
 		$sub['id'] = dbtickets_create();
 		$sub['created'] = time();
 
-		$sub['verify_string'] = instagram_push_subscriptions_generate_verify_string();
+		$sub['verify_token'] = instagram_push_subscriptions_generate_verify_token();
 		$sub['secret_url'] = instagram_push_subscriptions_generate_secret_url();
 
 		if (is_array($sub['topic_args'])){
@@ -43,7 +43,7 @@
 			$insert[$k] = AddSlashes($v);
 		}
 
-		$rsp = db_insert('InstragramPushSubscriptions', $insert);
+		$rsp = db_insert('InstagramPushSubscriptions', $insert);
 
 		if ($rsp['ok']){
 			$rsp['subscription'] = $sub;
@@ -80,7 +80,7 @@
 
 	#################################################################
 
-	function instagram_push_subscriptions_generate_verify_string(){
+	function instagram_push_subscriptions_generate_verify_token(){
 		return random_string(32);
 	}
 
