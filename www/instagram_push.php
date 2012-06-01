@@ -19,9 +19,16 @@
 	}
 
 	# IMPORTANT: Note the '_' characters in the place of the '.'
-	# separator described in the Instagram docs. This is a PHP-ism...
+	# separator for 'hub.*' parameters, as described in the Instagram
+	# docs. This is a PHP-ism...
 
 	if (get_str("hub_mode") == "subscribe"){
+
+		# possibly too restrictive?
+
+		if ($subscription['verified']){
+			error_403();
+		}
 
 		$challenge = get_str("hub_challenge");
 		$verify = get_str("hub_verify_token");
@@ -49,7 +56,7 @@
 		exit();
 	}
 
-	# otherwise something is posting to us
+	# okay, now assume something is posting to us
 
 	$raw = file_get_contents("php://input");
 
@@ -66,9 +73,9 @@
 
 	$data = json_decode($raw, "as hash");
 
-	# $fh = fopen("/tmp/instapush", "w");
-	# fwrite($fh, $raw);
-	# fclose($fh);
+	$fh = fopen("/tmp/instapush", "w");
+	fwrite($fh, $raw);
+	fclose($fh);
 
 	if (! $data){
 		error_500();
