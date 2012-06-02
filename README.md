@@ -78,11 +78,11 @@ Also, two are two important caveats about the PuSH stuff:
 1) It does not magically start happening as soon as you turn it on. You will
 need to create a new subscription using: 
 
-	$> [bin/subscribe-push-feed.php](https://github.com/straup/parallel-ogram/blob/master/bin/subscribe-push-feed.php) -t user -u http://your-website.com
+	$> bin/subscribe-push-feed.php -t user -u http://your-website.com
 	
 Or:
 
-	[http://your-website.com/god/push/subscriptions/](https://github.com/straup/parallel-ogram/blob/master/www/god/push_subscriptions.php)
+	http://your-website.com/god/push/subscriptions/
 
 Note that you'll need to have poor man's god auth enabled,
 [in the config file](https://github.com/straup/parallel-ogram/blob/master/www/include/config.php.example),
