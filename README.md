@@ -78,7 +78,7 @@ Also, two are two important caveats about the PuSH stuff:
 1) It does not magically start happening as soon as you turn it on. You will
 need to create a new subscription using: 
 
-	$> bin/subscribe-push-feed.php -t user -u http://your-website.com
+	$> php -q bin/subscribe-push-feed.php -t user -u http://your-website.com
 	
 Or:
 

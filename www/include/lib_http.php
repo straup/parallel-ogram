@@ -137,6 +137,10 @@
 				$ch = http_post($url, $body, $headers, $more);
 			}
 
+			else if ($method == 'DELETE'){
+				$ch = http_delete($url, $body, $headers, $more);
+			}
+
 			else if ($method == 'PUT'){
 				$ch = http_put($url, $body, $headers, $more);
 			}
