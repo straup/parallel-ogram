@@ -3,6 +3,10 @@
 	include("../include/init.php");
 	loadlib("god");
 
+	if (! $GLOBALS['cfg']['enable_feature_instagram_push']){
+		error_disabled();
+	}
+
 	loadlib("instagram_push");
 	loadlib("instagram_push_subscriptions");
 
@@ -14,11 +18,13 @@
 
 	if ((post_str("create") && (crumb_check($crumb_key)))){
 
+		# Note the 'str'-iness of it; we want to make sure
+		# we catch whether the user has passed '' and not
+		# just a numeric false-ity.
+
 		$topic_id = post_str("topic_id");
 
 		if (isset($topic_map[$topic_id])){
-
-			$topic = $topic_map[$topic_id];
 
 			$sub = array(
 				'topic_id' => $topic_id

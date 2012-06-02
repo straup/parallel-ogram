@@ -101,7 +101,25 @@
 
 	);
 
-	$GLOBALS['cfg']['enable_feature_instagram_push'] = 1;
+	# This is off by default because in order to use it you need to
+	# ensure that the directory specified in the $GLOBALS['cfg']['instagram_static_path']
+	# config variable is writeable by the web server. Also, two things about
+	# the push stuff:
+	#
+	# 1) It does not magically start happening as soon as you turn it on.
+	#    You will need to create a new subscription using:
+	# 	parallel-ogram:bin/subscribe-push-feed.php or
+	# 	http://parallel-ogram:www/god/push/subscriptions/
+	#    Note that you'll need to have poor man's god auth enabled for that
+	#    URL to work (see above).
+	#
+	# 2) It's only for archiving the photos belonging to user's who've authed
+	#    with this particular instance of parallel-ogram. It does not expose
+	#    any "public" UI or deal with photos people have liked. This is because
+	#    of privacy issues (or simply a lack of functionality) in the Instagram
+	#    implementation.
+
+	$GLOBALS['cfg']['enable_feature_instagram_push'] = 0;
 
 	# Things you may want to tweak (but otherwise don't need to worry about)
 

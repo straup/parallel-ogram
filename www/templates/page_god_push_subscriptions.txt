@@ -27,7 +27,7 @@
 	{$crumb_key|crumb_input}
 	<input type="hidden" name="create" value="1" />
 	<select name="topic_id" id="topic">
-		<option />
+		<option>Please select a subscription type</option>
 {foreach from=$topic_map item="label" key="topic_id"}
 		<option value="{$topic_id|escape}">{$label|escape}</option>
 {/foreach}
@@ -53,6 +53,8 @@ $(document).ready(function(){
 
 <br clear="all" />
 
+{if $subscriptions|@count}
+
 <table>
 	<tr>
 		<th>ID</th>
@@ -73,5 +75,9 @@ $(document).ready(function(){
 {/foreach}
 </table>
 {include file="inc_pagination.txt"}
+
+{else}
+<p>You have not set up any subscriptions yet.</p>
+{/if}
 
 {include file="inc_god_foot.txt"}

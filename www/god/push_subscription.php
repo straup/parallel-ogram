@@ -3,6 +3,10 @@
 	include("../include/init.php");
 	loadlib("god");
 
+	if (! $GLOBALS['cfg']['enable_feature_instagram_push']){
+		error_disabled();
+	}
+
 	loadlib("instagram_push");
 	loadlib("instagram_push_subscriptions");
 

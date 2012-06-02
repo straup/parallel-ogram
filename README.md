@@ -57,6 +57,42 @@ directory. They need to be run by hand, like this:
 If you want to automate the process you'll need to stick them in a local cron
 tab or some other similar scheduling tool.
 
+Automagic backing up of your photos (using the Instagram PuSH feeds)
+--
+
+parallel-ogram can also be configured to archive the photos for registered users
+using the
+[real-time photo update PuSH feeds](http://instagram.com/developer/realtime/)
+from Instagram.
+
+By default this functionality is disabled  default because in order to use it
+you need to ensure that the directory specified in the
+$GLOBALS['cfg']['instagram_static_path'] config variable is writeable by the web
+server. To enable the PuSH features you'll need to update the following in your
+config file: 
+
+	$GLOBALS['cfg']['enable_feature_instagram_push'] = 1;
+
+Also, two are two important caveats about the PuSH stuff:
+
+1) It does not magically start happening as soon as you turn it on. You will
+need to create a new subscription using: 
+
+	$> [bin/subscribe-push-feed.php](https://github.com/straup/parallel-ogram/blob/master/bin/subscribe-push-feed.php) -t user -u http://your-website.com
+	
+Or:
+
+	[http://your-website.com/god/push/subscriptions/](https://github.com/straup/parallel-ogram/blob/master/www/god/push_subscriptions.php)
+
+Note that you'll need to have poor man's god auth enabled,
+[in the config file](https://github.com/straup/parallel-ogram/blob/master/www/include/config.php.example),
+for that 'god' URL to work.
+
+2) It's only for archiving the photos belonging to user's who've authed with
+this particular instance of parallel-ogram. It does not expose any "public" UI
+or deal with photos people have liked. This is because of privacy issues (or
+simply a lack of functionality) in the Instagram implementation.
+
 See also
 --
 
