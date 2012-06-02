@@ -11,4 +11,10 @@
 	<li><a href="{$cfg.abs_root_url}god/invites/generate/">Invite generator</a></li>
 </ul>
 
+{if $cfg.enable_feature_instagram_push}
+<ul>
+	<li><a href="{$cfg.abs_root_url}god/push/subscriptions/">Push subscrpitions</a></li>
+</ul>
+{/if}
+
 {include file="inc_god_foot.txt"}
