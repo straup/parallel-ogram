@@ -24,6 +24,15 @@
 
 	#################################################################
 
+	function instagram_push_subscriptions_get_subscriptions($args=array()){
+
+		$sql = "SELECT * FROM InstagramPushSubscriptions";
+		$rsp = db_fetch_paginated($sql, $args);
+		return $rsp;
+	}
+
+	#################################################################
+
 	function instagram_push_subscriptions_create($sub){
 
 		$sub['id'] = dbtickets_create();

@@ -1,0 +1,24 @@
+{include file="inc_god_head.txt"}
+
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Created</th>
+		<th>Verified</th>
+		<th>Last update</th>
+		<th>Topic</th>
+	</tr>
+{foreach from=$subscriptions item="row"}
+{assign var="topic_id" value=$row.topic_id}
+	<tr>
+		<td><a href="">{$row.id|escape}</a></td>
+		<td>{$row.created|date_format:"%Y-%m-%d at %H:%M"|escape}</td>
+		<td>{if $row.verified}{$row.verified|date_format:"%Y-%m-%d at %H:%M"|escape}{else}&#8212;{/if}</td>
+		<td>{if $row.last_update}{$row.last_update|date_format:"%Y-%m-%d at %H:%M"|escape}{else}&#8212;{/if}</td>
+		<td>{$topic_map.$topic_id|escape}</td>
+	</tr>
+{/foreach}
+</table>
+{include file="inc_pagination.txt"}
+
+{include file="inc_god_foot.txt"}
