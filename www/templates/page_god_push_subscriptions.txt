@@ -1,8 +1,26 @@
+{capture assign="page_title"}push | subscriptions{/capture}
 {include file="inc_god_head.txt"}
 
 {if $smarty.get.deleted}
 <p class="confirm">Okay, that subscription feed has been deleted.</p>
 {/if}
+
+{if $create_sub or $create_feed}
+{$create_sub|@dumper}
+{$create_feed|@dumper}
+{/if}
+
+<form action="{$cfg.abs_root_url}god/push/subscriptions/" method="POST" style="float:right;">
+	{$crumb_key|crumb_input}
+	<input type="hidden" name="create" value="1" />
+	<select name="topic_id">
+		<option />
+{foreach from=$topic_map item="label" key="topic_id"}
+		<option value="{$topic_id|escape}">{$label|escape}</option>
+{/foreach}
+	</select>
+	<input type="submit" value="CREATE NEW FEED" />
+</form>
 
 <table>
 	<tr>
