@@ -25,11 +25,26 @@ th { text-align:left; }
 
 {/if}
 
-<form action="{$cfg.abs_root_url}god/push/subscriptions/{$subscription.id|escape}" method="POST" style="float:right;">
+<form id="deleteme" action="{$cfg.abs_root_url}god/push/subscriptions/{$subscription.id|escape}" method="POST" style="float:right;">
 	{$crumb_key|crumb_input}
 	<input type="hidden" name="delete" value="1" />
 	<input type="submit" value="DELETE THIS FEED" />
 </form>
+
+<script type="text/javascript">
+{literal}
+$(document).ready(function(){
+	$("#deleteme").submit(function(){
+
+		var q = "Are you sure you want to delete this feed?";
+
+		if (! confirm(q)){
+			return false;
+		}
+	});
+});
+{/literal}
+</script>
 
 <br clear="all" />
 

@@ -6,14 +6,27 @@
 {/if}
 
 {if $create_sub or $create_feed}
-{$create_sub|@dumper}
-{$create_feed|@dumper}
+
+{if $create_sub.ok}
+
+<p class="confirm">You subscription has been added to the database.</p>
+
+{if $create_feed.ok}
+<p class="confirm">You subscription has been registered with Instagram.</p>
+{else}
+<p class="error">There was a problem subscribing to this feed with Instagram: {$create_feed.error|escape}.</p>
 {/if}
 
-<form action="{$cfg.abs_root_url}god/push/subscriptions/" method="POST" style="float:right;">
+{else}
+<p class="error">There was a problem adding this subscription to the database: {$create_sub.error|escape}.</p>
+{/if}
+
+{/if}
+
+<form id="createme" action="{$cfg.abs_root_url}god/push/subscriptions/" method="POST" style="float:right;">
 	{$crumb_key|crumb_input}
 	<input type="hidden" name="create" value="1" />
-	<select name="topic_id">
+	<select name="topic_id" id="topic">
 		<option />
 {foreach from=$topic_map item="label" key="topic_id"}
 		<option value="{$topic_id|escape}">{$label|escape}</option>
@@ -21,6 +34,24 @@
 	</select>
 	<input type="submit" value="CREATE NEW FEED" />
 </form>
+
+<script type="text/javascript">
+{literal}
+$(document).ready(function(){
+	$("#createme").submit(function(){
+
+		var t = $("#topic").val();
+
+		if (t==''){
+			alert("You forgot to choose a feed topic!");
+			return false;
+		}
+	});
+});
+{/literal}
+</script>
+
+<br clear="all" />
 
 <table>
 	<tr>
