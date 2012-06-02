@@ -13,7 +13,7 @@
 
 {if $cfg.enable_feature_instagram_push}
 <ul>
-	<li><a href="{$cfg.abs_root_url}god/push/subscriptions/">Push subscrpitions</a></li>
+	<li><a href="{$cfg.abs_root_url}god/push/subscriptions/">Push subscriptions</a></li>
 </ul>
 {/if}
 

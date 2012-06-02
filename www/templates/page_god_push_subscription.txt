@@ -8,6 +8,29 @@ th { text-align:left; }
 {/literal}
 </style>
 
+{if $delete_sub or $delete_feed}
+
+{if $delete_feed.ok}
+<p class="confirm">The Instagram subscription for this feed has been deleted.</p>
+
+{if $delete_sub.ok}
+{* we should never get here *}
+{else}
+<p class="error">There was a problem deleting this subscription from the database: {$delete_sub.error|escape}</p>
+{/if}
+
+{else}
+<p class="error">There was a problem unsubscribing from this Instagram feed: {$delete_feed.error|escape}</p>
+{/if}
+
+<form action="{$cfg.abs_root_url}god/push/subscriptions/{$subscription.id|escape}" method="POST" style="float:right;">
+	{$crumb_key|crumb_input}
+	<input type="hidden" name="delete" value="1" />
+	<input type="submit" value="DELETE THIS FEED" />
+</form>
+
+<br clear="all" />
+
 <table>
 	<tr><th>ID</th><td>{$subscription.id|escape}</td></tr>
 	<tr><th>Topic</th><td>{$subscription.str_topic|escape}</td></tr>

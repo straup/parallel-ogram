@@ -1,5 +1,9 @@
 {include file="inc_god_head.txt"}
 
+{if $smarty.get.deleted}
+<p class="confirm">Okay, that subscription feed has been deleted.</p>
+{/if}
+
 <table>
 	<tr>
 		<th>ID</th>
