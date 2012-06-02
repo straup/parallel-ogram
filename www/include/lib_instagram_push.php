@@ -1,5 +1,14 @@
 <?php
 
+	# This is an incomplete implementtation of this:
+	# 	http://instagram.com/developer/realtime/
+	#
+	# Basically, it's just enough to subscribe and unscubscribe
+	# from 'user' feeds for the purposes of archiving photos
+	# as they are uploaded to Instagram (20120601/straup)
+	
+	#################################################################
+
 	$GLOBALS['instagram_push_endpoint'] = 'https://api.instagram.com/v1/subscriptions/';
 
 	#################################################################
@@ -35,7 +44,6 @@
 		$topic_map = instagram_push_topic_map();
 		$object = $topic_map[$subscription['topic_id']];
 
-		# this does not work when run from the command line...
 		$callback = "{$GLOBALS['cfg']['abs_root_url']}push/{$subscription['secret_url']}/";
 
 		$params = array(
