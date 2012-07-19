@@ -56,14 +56,14 @@
 	# This is where your Instagram photos will be stored
 	# It should have a trailing slash e.g. /usr/local/parallelogram-static/
 	
-	$GLOBALS['cfg']['instagram_static_path'] = ''
+	$GLOBALS['cfg']['instagram_static_path'] = '';
 
 	# The 'instagram_static_url/path' flags needs to match the Alias directive
 	# in your Apache config. Note that the 'instagram_static_url' config is a
 	# relative path; relative to the root URL which is assigned separately.
 	# See also: https://github.com/straup/parallel-ogram/blob/master/apache/parallel-ogram.conf.example
 
-	$GLOBALS['cfg']['instagram_static_url'] = 'static/'
+	$GLOBALS['cfg']['instagram_static_url'] = 'static/';
 
 	# Invite codes – these are used to limit who can register
 	# to have their photos backed up. You'll need to do a
