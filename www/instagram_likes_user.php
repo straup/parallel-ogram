@@ -53,9 +53,11 @@
 
 	$rsp = instagram_likes_for_user($owner, $more);
 
+	$pagination_url = instagram_urls_for_user_likes($owner);
+
 	$GLOBALS['smarty']->assign_by_ref("photos", $rsp['rows']);
 	$GLOBALS['smarty']->assign_by_ref("owner", $owner);
-
+	$GLOBALS['smarty']->assign("pagination_url", $pagination_url);
 	$GLOBALS['smarty']->display("page_instagram_likes_user.txt");
 	exit();
 ?>
