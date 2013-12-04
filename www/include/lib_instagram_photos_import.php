@@ -97,7 +97,7 @@
 		# (20120321/straup)
 
 		$photo_base = basename($photo_url);
-		$photo_secret = preg_replace("/_\d+.jpg/", "", $photo_base);
+		$photo_secret = preg_replace("/_\d+\.jpg/", "", $photo_base);
 
 		$id = $row['id'];
 		list($photo_id, $ignore) = explode("_", $id, 2);
