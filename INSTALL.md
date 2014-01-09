@@ -13,7 +13,7 @@ The basics
 ===
 
 	# You will need valid Instagram OAuth credentials
-	# See also: http://instagram.com/developer/client/register/
+	# See also: http://instagram.com/developer/register/
 
 	$GLOBALS['cfg']['instagram_oauth_key'] = '';
 	$GLOBALS['cfg']['instagram_oauth_secret'] = '';
